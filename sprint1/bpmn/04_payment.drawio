@@ -1,0 +1,223 @@
+<mxfile host="app.diagrams.net" modified="2026-09-23T01:50:00.000Z" agent="5.0" version="21.0.0" type="device">
+  <diagram id="payment_perfected" name="04_payment">
+    <mxGraphModel dx="1200" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1530" pageHeight="540" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ==================== ПУЛ 1: КЛІЄНТ ==================== -->
+        <mxCell id="p_client" value="Клієнт" style="swimlane;html=1;horizontal=0;startSize=28;fillColor=#E3F2FD;strokeColor=#1976D2;fontColor=#0D47A1;fontFamily=Arial;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="30" width="1470" height="145" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cp1" value="1. Початок" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=1.5;fontFamily=Arial;fontSize=10;" vertex="1" parent="p_client">
+          <mxGeometry x="45" y="52" width="40" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cp2" value="2. Ввести реквізити&#xa;та суму" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=1.2;fontFamily=Arial;fontSize=10;" vertex="1" parent="p_client">
+          <mxGeometry x="115" y="47" width="115" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cp3" value="3. Вказати&#xa;призначення" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=1.2;fontFamily=Arial;fontSize=10;" vertex="1" parent="p_client">
+          <mxGeometry x="255" y="47" width="105" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cp4" value="4. Підтвердити&#xa;оплату" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=1.2;fontFamily=Arial;fontSize=10;" vertex="1" parent="p_client">
+          <mxGeometry x="385" y="47" width="105" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cp5" value="5. Шлюз&#xa;подій" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57F17;strokeWidth=1.2;fontFamily=Arial;fontSize=9;" vertex="1" parent="p_client">
+          <mxGeometry x="525" y="52" width="40" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cp5_rej" value="Помилку&#xa;отримано" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFEBEE;strokeColor=#C62828;strokeWidth=1.5;fontFamily=Arial;fontSize=9;" vertex="1" parent="p_client">
+          <mxGeometry x="690" y="15" width="38" height="38" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cp5_end" value="Оплату&#xa;відхилено" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFEBEE;strokeColor=#C62828;strokeWidth=2.5;fontFamily=Arial;fontSize=9;fontStyle=1;" vertex="1" parent="p_client">
+          <mxGeometry x="770" y="15" width="38" height="38" as="geometry" />
+        </mxCell>
+
+        <!-- Чітке розділення кіл 6 та 7: 85px відстані -->
+        <mxCell id="cp6" value="6. Квитанцію&#xa;отримано" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=1.5;fontFamily=Arial;fontSize=9;" vertex="1" parent="p_client">
+          <mxGeometry x="1345" y="52" width="40" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cp7" value="7. Оплату&#xa;завершено" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=2.5;fontFamily=Arial;fontSize=9;fontStyle=1;" vertex="1" parent="p_client">
+          <mxGeometry x="1430" y="52" width="40" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ecp1_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#374151;" edge="1" parent="p_client" source="cp1" target="cp2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ecp2_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#374151;" edge="1" parent="p_client" source="cp2" target="cp3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ecp3_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#374151;" edge="1" parent="p_client" source="cp3" target="cp4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ecp4_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#374151;" edge="1" parent="p_client" source="cp4" target="cp5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ecp5_rej" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#C62828;" edge="1" parent="p_client" source="cp5" target="cp5_rej"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ecprej_end" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#C62828;" edge="1" parent="p_client" source="cp5_rej" target="cp5_end"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ecp5_6" value="Квитанція" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2E7D32;fontSize=9;" edge="1" parent="p_client" source="cp5" target="cp6">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="545" y="112" /><mxPoint x="1365" y="112" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ecp6_7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2E7D32;" edge="1" parent="p_client" source="cp6" target="cp7"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+
+        <!-- ==================== ПУЛ 2: БАНК ==================== -->
+        <mxCell id="p_bank" value="Банк" style="swimlane;html=1;horizontal=0;startSize=28;fillColor=#ECEFF1;strokeColor=#455A64;fontColor=#263238;fontFamily=Arial;fontSize=12;fontStyle=1;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="195" width="1470" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Доріжка: Система -->
+        <mxCell id="lp_sys" value="Система" style="swimlane;html=1;horizontal=0;startSize=24;fillColor=#FFFFFF;strokeColor=#CFD8DC;fontFamily=Arial;fontSize=10;fontColor=#374151;" vertex="1" parent="p_bank">
+          <mxGeometry x="28" y="0" width="1442" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Крок 9 вирівняно точно під кроком 4 клієнта: прямий вертикальний потік -->
+        <mxCell id="bkp9" value="9. Запит&#xa;отримано" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=1.5;fontFamily=Arial;fontSize=9;" vertex="1" parent="lp_sys">
+          <mxGeometry x="420" y="55" width="38" height="38" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bkp10" value="10. Перевірити&#xa;реквізити" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=1.2;fontFamily=Arial;fontSize=10;" vertex="1" parent="lp_sys">
+          <mxGeometry x="485" y="49" width="105" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bkp11" value="11. OK?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57F17;strokeWidth=1.2;fontFamily=Arial;fontSize=9;" vertex="1" parent="lp_sys">
+          <mxGeometry x="615" y="54" width="40" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bkp11_rej" value="Помилка&#xa;реквізитів" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFEBEE;strokeColor=#C62828;strokeWidth=2;fontFamily=Arial;fontSize=8;fontStyle=1;" vertex="1" parent="lp_sys">
+          <mxGeometry x="618" y="8" width="34" height="34" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bkp12" value="12. Розрахувати&#xa;комісію" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=1.2;fontFamily=Arial;fontSize=10;" vertex="1" parent="lp_sys">
+          <mxGeometry x="685" y="49" width="110" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Анотація 8: Комісія (вгорі над кроком 12) -->
+        <mxCell id="ann_pay_8" value="8. Комісія розраховується автоматично за тарифами банку та додається до суми платежу" style="shape=note;whiteSpace=wrap;html=1;size=10;verticalAlign=top;align=left;fillColor=#FEF9C3;strokeColor=#CA8A04;fontFamily=Arial;fontSize=8;" vertex="1" parent="lp_sys">
+          <mxGeometry x="665" y="6" width="170" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc_ann_8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=none;strokeColor=#CA8A04;" edge="1" parent="lp_sys" source="ann_pay_8" target="bkp12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bkp13" value="13. Баланс&#xa;OK?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57F17;strokeWidth=1.2;fontFamily=Arial;fontSize=9;" vertex="1" parent="lp_sys">
+          <mxGeometry x="825" y="54" width="40" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bkp13_rej" value="Нестача&#xa;коштів" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFEBEE;strokeColor=#C62828;strokeWidth=2;fontFamily=Arial;fontSize=8;fontStyle=1;" vertex="1" parent="lp_sys">
+          <mxGeometry x="828" y="8" width="34" height="34" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bkp14" value="14. Списати кошти&#xa;та комісію" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=1.2;fontFamily=Arial;fontSize=10;" vertex="1" parent="lp_sys">
+          <mxGeometry x="895" y="49" width="115" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Сховище даних: Рахунки (внизу між кроками 12 та 14) -->
+        <mxCell id="ds_pay_acc" value="Сховище&#xa;«Рахунки»" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=8;fillColor=#EDE7F6;strokeColor=#512DA8;strokeWidth=1.2;fontFamily=Arial;fontSize=8;fontStyle=1;" vertex="1" parent="lp_sys">
+          <mxGeometry x="818" y="125" width="55" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc_ds_12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=none;strokeColor=#7E57C2;" edge="1" parent="lp_sys" source="bkp12" target="ds_pay_acc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc_ds_14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=none;strokeColor=#7E57C2;" edge="1" parent="lp_sys" source="bkp14" target="ds_pay_acc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bkp15" value="15. Надіслати&#xa;доручення" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=1.2;fontFamily=Arial;fontSize=10;" vertex="1" parent="lp_sys">
+          <mxGeometry x="1040" y="49" width="110" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Об'єкт даних: Платіжне доручення (внизу під кроком 15) -->
+        <mxCell id="do_pay_order" value="«Платіжне&#xa;доручення»" style="shape=note;whiteSpace=wrap;html=1;size=8;verticalAlign=middle;align=center;fillColor=#FFFFFF;strokeColor=#546E7A;strokeWidth=1.2;fontFamily=Arial;fontSize=8;" vertex="1" parent="lp_sys">
+          <mxGeometry x="1065" y="125" width="60" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc_do_order" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=none;strokeColor=#546E7A;" edge="1" parent="lp_sys" source="bkp15" target="do_pay_order">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bkp19" value="19. Записати в&#xa;історію" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=1.2;fontFamily=Arial;fontSize=10;" vertex="1" parent="lp_sys">
+          <mxGeometry x="1185" y="49" width="105" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bkp20" value="20. Надіслати&#xa;квитанцію" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=1.2;fontFamily=Arial;fontSize=10;" vertex="1" parent="lp_sys">
+          <mxGeometry x="1315" y="49" width="105" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Об'єкт даних: Квитанція (внизу під кроком 20) -->
+        <mxCell id="do_pay_rec" value="«Квитанція»" style="shape=note;whiteSpace=wrap;html=1;size=8;verticalAlign=middle;align=center;fillColor=#FFFFFF;strokeColor=#2E7D32;strokeWidth=1.2;fontFamily=Arial;fontSize=8;" vertex="1" parent="lp_sys">
+          <mxGeometry x="1340" y="125" width="55" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc_do_receipt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=none;strokeColor=#2E7D32;" edge="1" parent="lp_sys" source="bkp20" target="do_pay_rec">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bkp21" value="21. Кінець" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=2.5;fontFamily=Arial;fontSize=9;fontStyle=1;" vertex="1" parent="lp_sys">
+          <mxGeometry x="1445" y="56" width="36" height="36" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ebk9_10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#374151;" edge="1" parent="lp_sys" source="bkp9" target="bkp10"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ebk10_11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#374151;" edge="1" parent="lp_sys" source="bkp10" target="bkp11"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ebk11_rej" value="ні" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#C62828;fontSize=9;" edge="1" parent="lp_sys" source="bkp11" target="bkp11_rej"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ebk11_12" value="так" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2E7D32;fontSize=9;" edge="1" parent="lp_sys" source="bkp11" target="bkp12"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ebk12_13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#374151;" edge="1" parent="lp_sys" source="bkp12" target="bkp13"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ebk13_rej" value="ні" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#C62828;fontSize=9;" edge="1" parent="lp_sys" source="bkp13" target="bkp13_rej"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ebk13_14" value="так" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2E7D32;fontSize=9;" edge="1" parent="lp_sys" source="bkp13" target="bkp14"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ebk14_15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#374151;" edge="1" parent="lp_sys" source="bkp14" target="bkp15"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ebk15_19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#374151;" edge="1" parent="lp_sys" source="bkp15" target="bkp19"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ebk19_20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#374151;" edge="1" parent="lp_sys" source="bkp19" target="bkp20"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ebk20_21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2E7D32;" edge="1" parent="lp_sys" source="bkp20" target="bkp21"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+
+        <!-- ==================== ПУЛ 3: ОДЕРЖУВАЧ ПЛАТЕЖУ ==================== -->
+        <mxCell id="p_rec" value="Одержувач" style="swimlane;html=1;horizontal=0;startSize=28;fillColor=#ECEFF1;strokeColor=#78909C;fontColor=#263238;fontFamily=Arial;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="415" width="1470" height="95" as="geometry" />
+        </mxCell>
+
+        <!-- Крок 16 вирівняно точно під кроком 15 банку: прямий вертикальний потік -->
+        <mxCell id="rec16" value="16. Доручення&#xa;отримано" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=1.5;fontFamily=Arial;fontSize=9;" vertex="1" parent="p_rec">
+          <mxGeometry x="1075" y="27" width="38" height="38" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rec17" value="17. Зарахувати&#xa;кошти" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=1.2;fontFamily=Arial;fontSize=10;" vertex="1" parent="p_rec">
+          <mxGeometry x="1155" y="22" width="105" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rec18" value="18. Кінець" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=2.5;fontFamily=Arial;fontSize=9;fontStyle=1;" vertex="1" parent="p_rec">
+          <mxGeometry x="1300" y="29" width="36" height="36" as="geometry" />
+        </mxCell>
+
+        <mxCell id="erec16_17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#374151;" edge="1" parent="p_rec" source="rec16" target="rec17"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="erec17_18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2E7D32;" edge="1" parent="p_rec" source="rec17" target="rec18"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+
+        <!-- ==================== ПОТОКИ ПОВІДОМЛЕНЬ ==================== -->
+        <!-- 4 -> 9: Прямий вертикальний потік вниз -->
+        <mxCell id="mp4_9" value="Розпорядження" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#1976D2;fontSize=9;" edge="1" parent="1" source="cp4" target="bkp9"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- 15 -> 16: Прямий вертикальний потік вниз -->
+        <mxCell id="mp15_16" value="Платіжне доручення" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#546E7A;fontSize=9;" edge="1" parent="1" source="bkp15" target="rec16"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- 20 -> 6: Прямий вертикальний потік вгору -->
+        <mxCell id="mp20_6" value="Квитанція" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#2E7D32;fontSize=9;" edge="1" parent="1" source="bkp20" target="cp6"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Канали відмов: чистий прямий вхід знизу до шлюзу подій клієнта -->
+        <mxCell id="mprej11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#C62828;" edge="1" parent="1" source="bkp11_rej" target="cp5_rej">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="646" y="178" />
+              <mxPoint x="705" y="178" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="mprej13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#C62828;" edge="1" parent="1" source="bkp13_rej" target="cp5_rej">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="856" y="178" />
+              <mxPoint x="715" y="178" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
