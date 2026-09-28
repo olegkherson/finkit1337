@@ -7,6 +7,7 @@
 **Репозиторій:** https://github.com/olegkherson/finkit1337  
 **Відповідність стандарту:** Шаблон 5 (Беклог вимог / User Stories)  
 **Посилання на Google Sheets:** https://docs.google.com/spreadsheets/d/11rJoTvpOApXVTW-pdllQI5DbAskFH9K2t5XIgALgsfw/edit?usp=sharing
+
 ---
 
 ## 1. Реєстр користувацьких історій (User Stories)
