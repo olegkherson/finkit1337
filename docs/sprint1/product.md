@@ -215,6 +215,6 @@
 * **Резервне demo:** [GlobalSQA Banking Project](https://globalsqa.com/angularJs-protractor/BankingProject/).
 * **Специфікація вимог (SRS):** `SRS_02_ФінКит.html` (версія 1.0, джерело аудиту у Спринті 2).
 * **Модуль бізнес-логіки Java (спринти 4-5):** `ua.kpi.tzyapz.finkit` (`LoanCalculator`, `TransferValidator`, `AccountLedger`).
-* **Репозиторій команди:** https://github.com/MykytaTop/Sprint1
+* **Репозиторій команди:** https://github.com/olegkherson/finkit1337
 * **Електронний беклог (Google Sheets):** [Посилання на спільну таблицю беклогу]
 
