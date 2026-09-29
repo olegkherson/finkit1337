@@ -1,0 +1,389 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" modified="2026-09-29T21:00:00.000Z" agent="5.0" version="21.0.0" type="device">
+  <diagram id="diag_01_transfer" name="01_transfer">
+    <mxGraphModel dx="1169" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        
+        <mxCell id="pool_client" value="Клієнт" style="swimlane;html=1;horizontal=0;startSize=28;fillColor=#E3F2FD;strokeColor=#1976D2;fontColor=#0D47A1;fontFamily=Arial;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="30" width="1080" height="130" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="c1" value="Виникла потреба&#10;переказати кошти" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;perimeter=ellipsePerimeter;outlineConnect=0;outline=standard;symbol=general;strokeWidth=1.5;strokeColor=#2E7D32;fillColor=#E8F5E9;fontFamily=Arial;fontSize=8;" vertex="1" parent="pool_client">
+          <mxGeometry x="40" y="45" width="36" height="36" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="c2" value="2. Вказати рахунок&#10;списання, IBAN&#10;одержувача та суму" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#374151;fillColor=#FFFFFF;fontFamily=Arial;fontSize=8;" vertex="1" parent="pool_client">
+          <mxGeometry x="105" y="41" width="115" height="44" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="c3" value="3. Підтвердити&#10;переказ" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#374151;fillColor=#FFFFFF;fontFamily=Arial;fontSize=8;" vertex="1" parent="pool_client">
+          <mxGeometry x="245" y="41" width="95" height="44" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="c4" value="Очікування&#10;результату" style="rhombus;html=1;whiteSpace=wrap;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;outlineConnect=0;strokeColor=#F57F17;fillColor=#FFF8E1;strokeWidth=1.5;fontFamily=Arial;fontSize=8;" vertex="1" parent="pool_client">
+          <mxGeometry x="365" y="45" width="36" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="c4_mk" value="" style="shape=doubleEllipse;fillColor=none;strokeColor=#F57F17;strokeWidth=1.2;" vertex="1" connectable="0" parent="c4">
+          <mxGeometry x="8" y="8" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="c4_mk2" value="" style="shape=mxgraph.basic.pentagon;fillColor=none;strokeColor=#F57F17;strokeWidth=1.2;" vertex="1" connectable="0" parent="c4">
+          <mxGeometry x="14" y="14" width="8" height="8" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="c7" value="7. Отримано&#10;відмову" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;perimeter=ellipsePerimeter;outlineConnect=0;outline=intermediate;symbol=message;strokeWidth=1.5;strokeColor=#C62828;fillColor=#FFEBEE;fontFamily=Arial;fontSize=8;" vertex="1" parent="pool_client">
+          <mxGeometry x="450" y="15" width="36" height="36" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="c8" value="8. Переказ&#10;відхилено" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;perimeter=ellipsePerimeter;outlineConnect=0;outline=end;symbol=general;strokeWidth=3;strokeColor=#C62828;fillColor=#FFEBEE;fontFamily=Arial;fontSize=8;fontStyle=1;" vertex="1" parent="pool_client">
+          <mxGeometry x="530" y="15" width="36" height="36" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="c5" value="5. Отримано&#10;квитанцію" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;perimeter=ellipsePerimeter;outlineConnect=0;outline=intermediate;symbol=message;strokeWidth=1.5;strokeColor=#2E7D32;fillColor=#E8F5E9;fontFamily=Arial;fontSize=8;" vertex="1" parent="pool_client">
+          <mxGeometry x="930" y="45" width="36" height="36" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="c6" value="6. Переказ&#10;виконано" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;perimeter=ellipsePerimeter;outlineConnect=0;outline=end;symbol=general;strokeWidth=3;strokeColor=#2E7D32;fillColor=#E8F5E9;fontFamily=Arial;fontSize=8;fontStyle=1;" vertex="1" parent="pool_client">
+          <mxGeometry x="1005" y="45" width="36" height="36" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="seq_c1_c2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="pool_client" source="c1" target="c2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_c2_c3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="pool_client" source="c2" target="c3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_c3_c4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="pool_client" source="c3" target="c4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_c4_c7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#C62828;endArrow=block;endFill=1;endSize=6;" edge="1" parent="pool_client" source="c4" target="c7"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_c7_c8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#C62828;endArrow=block;endFill=1;endSize=6;" edge="1" parent="pool_client" source="c7" target="c8"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_c4_c5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#2E7D32;endArrow=block;endFill=1;endSize=6;" edge="1" parent="pool_client" source="c4" target="c5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="383" y="105" /><mxPoint x="948" y="105" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_c5_c6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#2E7D32;endArrow=block;endFill=1;endSize=6;" edge="1" parent="pool_client" source="c5" target="c6"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+
+        
+        <mxCell id="pool_bank" value="Банк" style="swimlane;html=1;horizontal=0;startSize=28;fillColor=#ECEFF1;strokeColor=#455A64;fontColor=#263238;fontFamily=Arial;fontSize=11;fontStyle=1;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="180" width="1080" height="260" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="lane_sys" value="Система" style="swimlane;html=1;horizontal=0;startSize=24;fillColor=#FFFFFF;strokeColor=#CFD8DC;fontColor=#37474F;fontFamily=Arial;fontSize=10;fontStyle=1;" vertex="1" parent="pool_bank">
+          <mxGeometry x="28" y="0" width="1052" height="150" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b10" value="Отримано запит&#10;на переказ" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;perimeter=ellipsePerimeter;outlineConnect=0;outline=standard;symbol=message;strokeWidth=1.5;strokeColor=#2E7D32;fillColor=#E8F5E9;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="15" y="52" width="36" height="36" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b11" value="11. Перевірити&#10;формат IBAN" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#374151;fillColor=#FFFFFF;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="75" y="48" width="90" height="44" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b12" value="IBAN&#10;коректний?" style="rhombus;html=1;whiteSpace=wrap;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;outlineConnect=0;strokeColor=#F57F17;fillColor=#FFF8E1;strokeWidth=1.5;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="185" y="52" width="36" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="b12_mk" value="" style="shape=cross;size=0.28;rotation=45;fillColor=#F57F17;strokeColor=none;" vertex="1" connectable="0" parent="b12">
+          <mxGeometry x="9" y="9" width="18" height="18" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b12_send" value="Надіслати відмову:&#10;помилка IBAN" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#C62828;fillColor=#FFEBEE;fontFamily=Arial;fontSize=7;" vertex="1" parent="lane_sys">
+          <mxGeometry x="153" y="6" width="100" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="b12_end" value="Відхилено системою" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;perimeter=ellipsePerimeter;outlineConnect=0;outline=end;symbol=general;strokeWidth=3;strokeColor=#C62828;fillColor=#FFEBEE;fontFamily=Arial;fontSize=7;fontStyle=1;" vertex="1" parent="lane_sys">
+          <mxGeometry x="273" y="10" width="26" height="26" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b13" value="13. Перевірити&#10;баланс і ліміти" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#374151;fillColor=#FFFFFF;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="245" y="48" width="90" height="44" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="ds_acc" value="Сховище&#10;«Рахунки»" style="shape=datastore;whiteSpace=wrap;html=1;outlineConnect=0;strokeWidth=1.5;strokeColor=#6A1B9A;fillColor=#F3E5F5;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="270" y="102" width="40" height="35" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b14" value="Коштів&#10;достатньо?" style="rhombus;html=1;whiteSpace=wrap;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;outlineConnect=0;strokeColor=#F57F17;fillColor=#FFF8E1;strokeWidth=1.5;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="355" y="52" width="36" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="b14_mk" value="" style="shape=cross;size=0.28;rotation=45;fillColor=#F57F17;strokeColor=none;" vertex="1" connectable="0" parent="b14">
+          <mxGeometry x="9" y="9" width="18" height="18" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b14_send" value="Надіслати відмову:&#10;нестача коштів" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#C62828;fillColor=#FFEBEE;fontFamily=Arial;fontSize=7;" vertex="1" parent="lane_sys">
+          <mxGeometry x="323" y="6" width="100" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="b14_end" value="Відхилено системою" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;perimeter=ellipsePerimeter;outlineConnect=0;outline=end;symbol=general;strokeWidth=3;strokeColor=#C62828;fillColor=#FFEBEE;fontFamily=Arial;fontSize=7;fontStyle=1;" vertex="1" parent="lane_sys">
+          <mxGeometry x="448" y="10" width="26" height="26" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b15" value="Денний ліміт&#10;перевищено?" style="rhombus;html=1;whiteSpace=wrap;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;outlineConnect=0;strokeColor=#F57F17;fillColor=#FFF8E1;strokeWidth=1.5;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="420" y="52" width="36" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="b15_mk" value="" style="shape=cross;size=0.28;rotation=45;fillColor=#F57F17;strokeColor=none;" vertex="1" connectable="0" parent="b15">
+          <mxGeometry x="9" y="9" width="18" height="18" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="ann_9" value="Базовий денний ліміт — 50 000 грн.&#10;Операції понад ліміт передаються операціоністу." style="shape=partialRectangle;left=1;right=0;top=1;bottom=1;whiteSpace=wrap;spacingLeft=6;html=1;outlineConnect=0;strokeWidth=1.2;strokeColor=#78909C;fillColor=none;fontFamily=Arial;fontSize=7;fontColor=#455A64;align=left;" vertex="1" parent="lane_sys">
+          <mxGeometry x="318" y="112" width="112" height="34" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b20" value="" style="rhombus;html=1;whiteSpace=wrap;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;outlineConnect=0;strokeColor=#F57F17;fillColor=#FFF8E1;strokeWidth=1.5;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="485" y="52" width="36" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="b20_mk" value="" style="shape=cross;size=0.28;rotation=45;fillColor=#F57F17;strokeColor=none;" vertex="1" connectable="0" parent="b20">
+          <mxGeometry x="9" y="9" width="18" height="18" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b21" value="21. Надіслати запит&#10;на авторизацію" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#374151;fillColor=#FFFFFF;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="540" y="48" width="95" height="44" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b23" value="23. Авторизацію&#10;підтверджено" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;perimeter=ellipsePerimeter;outlineConnect=0;outline=intermediate;symbol=message;strokeWidth=1.5;strokeColor=#2E7D32;fillColor=#E8F5E9;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="655" y="52" width="36" height="36" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b24" value="" style="rhombus;html=1;whiteSpace=wrap;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;outlineConnect=0;strokeColor=#1565C0;fillColor=#E3F2FD;strokeWidth=1.5;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="710" y="52" width="36" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="b24_mk" value="" style="shape=cross;size=0.28;fillColor=#1565C0;strokeColor=none;" vertex="1" connectable="0" parent="b24">
+          <mxGeometry x="9" y="9" width="18" height="18" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b24_deb" value="24. Списати з&#10;відправника" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#1565C0;fillColor=#FFFFFF;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="765" y="24" width="85" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="b25_crd" value="25. Зарахувати&#10;одержувачу" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#1565C0;fillColor=#FFFFFF;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="765" y="76" width="85" height="38" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b25_join" value="" style="rhombus;html=1;whiteSpace=wrap;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;outlineConnect=0;strokeColor=#1565C0;fillColor=#E3F2FD;strokeWidth=1.5;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="870" y="52" width="36" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="b25_join_mk" value="" style="shape=cross;size=0.28;fillColor=#1565C0;strokeColor=none;" vertex="1" connectable="0" parent="b25_join">
+          <mxGeometry x="9" y="9" width="18" height="18" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="ann_18" value="Атомарна транзакція: списання та&#10;зарахування в єдиному контексті." style="shape=partialRectangle;left=1;right=0;top=1;bottom=1;whiteSpace=wrap;spacingLeft=6;html=1;outlineConnect=0;strokeWidth=1.2;strokeColor=#78909C;fillColor=none;fontFamily=Arial;fontSize=7;fontColor=#455A64;align=left;" vertex="1" parent="lane_sys">
+          <mxGeometry x="730" y="118" width="155" height="26" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b26" value="26. Зафіксувати&#10;транзакцію" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#374151;fillColor=#FFFFFF;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="920" y="26" width="80" height="38" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b27" value="27. Сформувати&#10;та надіслати квитанцію" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#374151;fillColor=#FFFFFF;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_sys">
+          <mxGeometry x="920" y="74" width="95" height="40" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b28" value="28. Переказ&#10;виконано" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;perimeter=ellipsePerimeter;outlineConnect=0;outline=end;symbol=general;strokeWidth=3;strokeColor=#2E7D32;fillColor=#E8F5E9;fontFamily=Arial;fontSize=8;fontStyle=1;" vertex="1" parent="lane_sys">
+          <mxGeometry x="1010" y="30" width="30" height="30" as="geometry" />
+        </mxCell>
+
+
+        
+        <mxCell id="lane_op" value="Операціоніст" style="swimlane;html=1;horizontal=0;startSize=24;fillColor=#FFFFFF;strokeColor=#CFD8DC;fontColor=#37474F;fontFamily=Arial;fontSize=10;fontStyle=1;" vertex="1" parent="pool_bank">
+          <mxGeometry x="28" y="150" width="1052" height="110" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b16" value="16. Зв'язатися з клієнтом&#10;та перевірити операцію" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#374151;fillColor=#FFFFFF;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_op">
+          <mxGeometry x="380" y="32" width="115" height="46" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b17" value="17. Операцію&#10;підтверджено?" style="rhombus;html=1;whiteSpace=wrap;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;outlineConnect=0;strokeColor=#F57F17;fillColor=#FFF8E1;strokeWidth=1.5;fontFamily=Arial;fontSize=8;" vertex="1" parent="lane_op">
+          <mxGeometry x="520" y="37" width="36" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="b17_mk" value="" style="shape=cross;size=0.28;rotation=45;fillColor=#F57F17;strokeColor=none;" vertex="1" connectable="0" parent="b17">
+          <mxGeometry x="9" y="9" width="18" height="18" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="b17_send" value="Надіслати сповіщення&#10;про відхилення" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#C62828;fillColor=#FFEBEE;fontFamily=Arial;fontSize=7;" vertex="1" parent="lane_op">
+          <mxGeometry x="580" y="35" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="b17_end" value="Відхилено операціоністом" style="shape=mxgraph.bpmn.shape;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;labelBackgroundColor=#ffffff;perimeter=ellipsePerimeter;outlineConnect=0;outline=end;symbol=general;strokeWidth=3;strokeColor=#C62828;fillColor=#FFEBEE;fontFamily=Arial;fontSize=7;fontStyle=1;" vertex="1" parent="lane_op">
+          <mxGeometry x="700" y="42" width="26" height="26" as="geometry" />
+        </mxCell>
+
+
+        
+        <mxCell id="pool_proc" value="Процесинговий центр" style="swimlane;html=1;horizontal=0;startSize=28;fillColor=#E8F5E9;strokeColor=#2E7D32;fontColor=#1B5E20;fontFamily=Arial;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="460" width="1080" height="100" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="p18" value="Отримано запит&#10;на авторизацію" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;perimeter=ellipsePerimeter;outlineConnect=0;outline=standard;symbol=message;strokeWidth=1.5;strokeColor=#2E7D32;fillColor=#FFFFFF;fontFamily=Arial;fontSize=8;" vertex="1" parent="pool_proc">
+          <mxGeometry x="520" y="32" width="36" height="36" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="p19" value="19. Авторизувати&#10;транзакцію" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=1.2;strokeColor=#374151;fillColor=#FFFFFF;fontFamily=Arial;fontSize=8;" vertex="1" parent="pool_proc">
+          <mxGeometry x="585" y="28" width="105" height="44" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="p22" value="22. Авторизацію&#10;підтверджено" style="shape=mxgraph.bpmn.shape;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;perimeter=ellipsePerimeter;outlineConnect=0;outline=end;symbol=message;symbolFill=1;strokeWidth=3;strokeColor=#2E7D32;fillColor=#E8F5E9;fontFamily=Arial;fontSize=8;fontStyle=1;" vertex="1" parent="pool_proc">
+          <mxGeometry x="720" y="32" width="36" height="36" as="geometry" />
+        </mxCell>
+
+        <mxCell id="seq_p18_p19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="pool_proc" source="p18" target="p19"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_p19_p22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="pool_proc" source="p19" target="p22"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+
+        
+        <mxCell id="seq_b10_b11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b10" target="b11"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_b11_b12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b11" target="b12"><mxGeometry relative="1" as="geometry" /></mxCell>
+        
+        
+        <mxCell id="seq_b12_rej" value="ні" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#C62828;endArrow=block;endFill=1;endSize=6;fontSize=8;" edge="1" parent="lane_sys" source="b12" target="b12_send"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_b12_send_end" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#C62828;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b12_send" target="b12_end"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_b12_b13" value="так" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;fontSize=8;" edge="1" parent="lane_sys" source="b12" target="b13"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_b13_b14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b13" target="b14"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_b14_rej" value="ні" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#C62828;endArrow=block;endFill=1;endSize=6;fontSize=8;" edge="1" parent="lane_sys" source="b14" target="b14_send"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_b14_send_end" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#C62828;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b14_send" target="b14_end"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_b14_b15" value="так" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;fontSize=8;" edge="1" parent="lane_sys" source="b14" target="b15"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_b15_b20" value="ні" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;fontSize=8;" edge="1" parent="lane_sys" source="b15" target="b20"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_b15_b16" value="так" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#F57F17;endArrow=block;endFill=1;endSize=6;fontSize=8;" edge="1" parent="pool_bank" source="b15" target="b16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="seq_b16_b17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_op" source="b16" target="b17"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_b17_rej" value="ні" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#C62828;endArrow=block;endFill=1;endSize=6;fontSize=8;" edge="1" parent="lane_op" source="b17" target="b17_send"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_b17_send_end" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#C62828;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_op" source="b17_send" target="b17_end"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_b17_b20" value="так" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#2E7D32;endArrow=block;endFill=1;endSize=6;fontSize=8;" edge="1" parent="pool_bank" source="b17" target="b20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="566" y="187" /><mxPoint x="531" y="110" /></Array>
+          </mxGeometry>
+        </mxCell>
+
+        
+        <mxCell id="seq_b20_b21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b20" target="b21"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_b21_b23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b21" target="b23"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_b23_b24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b23" target="b24"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_b24_deb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#1565C0;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b24" target="b24_deb"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_b24_crd" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#1565C0;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b24" target="b25_crd"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_deb_join" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#1565C0;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b24_deb" target="b25_join"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_crd_join" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#1565C0;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b25_crd" target="b25_join"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        
+        <mxCell id="seq_join_b26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b25_join" target="b26"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_b26_b27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#374151;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b26" target="b27"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="seq_b27_b28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1.5;strokeColor=#2E7D32;endArrow=block;endFill=1;endSize=6;" edge="1" parent="lane_sys" source="b27" target="b28"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+
+        
+        
+        <mxCell id="assoc_b13_ds" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;html=1;strokeWidth=1.2;strokeColor=#78909C;endArrow=none;" edge="1" parent="lane_sys" source="ds_acc" target="b13"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="assoc_b24_ds" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;html=1;strokeWidth=1.2;strokeColor=#78909C;endArrow=none;" edge="1" parent="lane_sys" source="b24_deb" target="ds_acc">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="807" y="119" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="assoc_b25_ds" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;html=1;strokeWidth=1.2;strokeColor=#78909C;endArrow=none;" edge="1" parent="lane_sys" source="b25_crd" target="ds_acc">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="807" y="125" /></Array></mxGeometry>
+        </mxCell>
+
+
+        
+        
+        <mxCell id="msg_c3_b10" value="Запит на переказ" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;html=1;strokeWidth=1.5;strokeColor=#1565C0;startArrow=oval;startFill=0;startSize=5;endArrow=open;endSize=8;endFill=0;fontSize=8;" edge="1" parent="1" source="c3" target="b10">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="322" y="170" /><mxPoint x="91" y="170" /></Array></mxGeometry>
+        </mxCell>
+
+        
+        <mxCell id="msg_b12_c7" value="Помилка IBAN" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;html=1;strokeWidth=1.5;strokeColor=#C62828;startArrow=oval;startFill=0;startSize=5;endArrow=open;endSize=8;endFill=0;fontSize=8;" edge="1" parent="1" source="b12_send" target="c7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="231" y="170" /><mxPoint x="498" y="170" /></Array>
+          </mxGeometry>
+        </mxCell>
+
+        
+        <mxCell id="msg_b14_c7" value="Нестача коштів" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;html=1;strokeWidth=1.5;strokeColor=#C62828;startArrow=oval;startFill=0;startSize=5;endArrow=open;endSize=8;endFill=0;fontSize=8;" edge="1" parent="1" source="b14_send" target="c7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="msg_b17_c7" value="Відхилено операціоністом" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;html=1;strokeWidth=1.5;strokeColor=#C62828;startArrow=oval;startFill=0;startSize=5;endArrow=open;endSize=8;endFill=0;fontSize=8;" edge="1" parent="1" source="b17_send" target="c7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="658" y="175" /><mxPoint x="508" y="175" /></Array>
+          </mxGeometry>
+        </mxCell>
+
+        
+        <mxCell id="msg_b21_p18" value="Запит авторизації" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;html=1;strokeWidth=1.5;strokeColor=#2E7D32;startArrow=oval;startFill=0;startSize=5;endArrow=open;endSize=8;endFill=0;fontSize=8;" edge="1" parent="1" source="b21" target="p18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        
+        <mxCell id="msg_p22_b23" value="Авторизацію підтверджено" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;html=1;strokeWidth=1.5;strokeColor=#2E7D32;startArrow=oval;startFill=0;startSize=5;endArrow=open;endSize=8;endFill=0;fontSize=8;" edge="1" parent="1" source="p22" target="b23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="768" y="450" /><mxPoint x="701" y="450" /></Array>
+          </mxGeometry>
+        </mxCell>
+
+        
+        <mxCell id="msg_b27_c5" value="Квитанція" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;html=1;strokeWidth=1.5;strokeColor=#2E7D32;startArrow=oval;startFill=0;startSize=5;endArrow=open;endSize=8;endFill=0;fontSize=8;" edge="1" parent="1" source="b27" target="c5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="995" y="170" /><mxPoint x="978" y="170" /></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="assoc_ann9" style="rounded=0;dashed=1;html=1;strokeWidth=1.2;strokeColor=#78909C;startArrow=none;endArrow=none;exitX=0.95;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="lane_sys" source="ann_9" target="b15"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="assoc_ann18" style="rounded=0;dashed=1;html=1;strokeWidth=1.2;strokeColor=#78909C;startArrow=none;endArrow=none;exitX=0.02;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="lane_sys" source="ann_18" target="b24"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
