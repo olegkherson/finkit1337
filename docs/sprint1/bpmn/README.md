@@ -46,4 +46,4 @@
 ## Експорт (PDF)
 
 Геометрія кожної моделі налаштована на розмір **A4 Landscape** (`pageWidth="1169" pageHeight="827"`).
-Для кожної моделі експортується 1-сторінковий PDF: File -> Export as -> PDF (`01_account.pdf`, `02_transfer.pdf`, `03_loan.pdf`, `04_payment.pdf`).
+Для кожної моделі експортується 1-сторінковий PDF: File -> Export as -> PDF (`01_account.drawio.pdf`, `02_transfer.drawio.pdf`, `03_loan.drawio.pdf`, `04_payment.drawio.pdf`).
