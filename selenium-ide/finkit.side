@@ -1,0 +1,477 @@
+{
+  "id": "b7b0e8d1-4b28-4e6b-9f11-1c82b47c1001",
+  "version": "2.0",
+  "name": "FinKit Sprint 4 ParaBank",
+  "url": "https://parabank.parasoft.com",
+  "tests": [
+    {
+      "id": "b7b0e8d1-4b28-4e6b-9f11-1c82b47c2004",
+      "name": "TC-004 (F-20): Login Greeting and Logout",
+      "commands": [
+        {
+          "id": "c0040001-0000-4000-8000-000000000001",
+          "comment": "Open ParaBank registration page to provision an isolated user",
+          "command": "open",
+          "target": "/parabank/register.htm",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000002",
+          "comment": "Generate unique username with team prefix",
+          "command": "executeScript",
+          "target": "return 'fins4ide04_' + Math.floor(Math.random() * 900000 + 100000)",
+          "targets": [],
+          "value": "uname"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000003",
+          "comment": "Wait for registration form",
+          "command": "waitForElementVisible",
+          "target": "id=customer.firstName",
+          "targets": [["id=customer.firstName", "id"]],
+          "value": "10000"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000004",
+          "comment": "Enter first name",
+          "command": "type",
+          "target": "id=customer.firstName",
+          "targets": [["id=customer.firstName", "id"]],
+          "value": "Ivan"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000005",
+          "comment": "Enter last name",
+          "command": "type",
+          "target": "id=customer.lastName",
+          "targets": [["id=customer.lastName", "id"]],
+          "value": "Franchuk"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000006",
+          "comment": "Enter street address",
+          "command": "type",
+          "target": "id=customer.address.street",
+          "targets": [["id=customer.address.street", "id"]],
+          "value": "10 Khreshchatyk St"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000007",
+          "comment": "Enter city",
+          "command": "type",
+          "target": "id=customer.address.city",
+          "targets": [["id=customer.address.city", "id"]],
+          "value": "Kyiv"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000008",
+          "comment": "Enter state",
+          "command": "type",
+          "target": "id=customer.address.state",
+          "targets": [["id=customer.address.state", "id"]],
+          "value": "Kyivska"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000009",
+          "comment": "Enter zip code",
+          "command": "type",
+          "target": "id=customer.address.zipCode",
+          "targets": [["id=customer.address.zipCode", "id"]],
+          "value": "01001"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000010",
+          "comment": "Enter phone number",
+          "command": "type",
+          "target": "id=customer.phoneNumber",
+          "targets": [["id=customer.phoneNumber", "id"]],
+          "value": "380501112233"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000011",
+          "comment": "Enter SSN",
+          "command": "type",
+          "target": "id=customer.ssn",
+          "targets": [["id=customer.ssn", "id"]],
+          "value": "1234567890"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000012",
+          "comment": "Enter generated username",
+          "command": "type",
+          "target": "id=customer.username",
+          "targets": [["id=customer.username", "id"]],
+          "value": "${uname}"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000013",
+          "comment": "Enter password",
+          "command": "type",
+          "target": "id=customer.password",
+          "targets": [["id=customer.password", "id"]],
+          "value": "FinKit#2026"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000014",
+          "comment": "Confirm password",
+          "command": "type",
+          "target": "id=repeatedPassword",
+          "targets": [["id=repeatedPassword", "id"]],
+          "value": "FinKit#2026"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000015",
+          "comment": "Submit registration",
+          "command": "click",
+          "target": "css=input[type='submit'][value='Register']",
+          "targets": [["css=input[type='submit'][value='Register']", "css:finder"]],
+          "value": ""
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000016",
+          "comment": "Wait for auto-login completion",
+          "command": "waitForElementVisible",
+          "target": "linkText=Log Out",
+          "targets": [["linkText=Log Out", "linkText"]],
+          "value": "10000"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000017",
+          "comment": "Log out before verifying login flow",
+          "command": "click",
+          "target": "linkText=Log Out",
+          "targets": [["linkText=Log Out", "linkText"]],
+          "value": ""
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000018",
+          "comment": "Wait for Customer Login form",
+          "command": "waitForElementVisible",
+          "target": "name=username",
+          "targets": [["name=username", "name"]],
+          "value": "10000"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000019",
+          "comment": "Type registered username",
+          "command": "type",
+          "target": "name=username",
+          "targets": [["name=username", "name"]],
+          "value": "${uname}"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000020",
+          "comment": "Type password",
+          "command": "type",
+          "target": "name=password",
+          "targets": [["name=password", "name"]],
+          "value": "FinKit#2026"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000021",
+          "comment": "Submit login form",
+          "command": "click",
+          "target": "css=input[type='submit'][value='Log In']",
+          "targets": [["css=input[type='submit'][value='Log In']", "css:finder"]],
+          "value": ""
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000022",
+          "comment": "Wait for accounts table in cabinet",
+          "command": "waitForElementVisible",
+          "target": "id=accountTable",
+          "targets": [["id=accountTable", "id"]],
+          "value": "10000"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000023",
+          "comment": "Hard assert greeting in left panel",
+          "command": "assertText",
+          "target": "css=#leftPanel p.smallText",
+          "targets": [["css=#leftPanel p.smallText", "css:finder"]],
+          "value": "Welcome Ivan Franchuk"
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000024",
+          "comment": "Soft verify Log Out link presence",
+          "command": "verifyElementPresent",
+          "target": "linkText=Log Out",
+          "targets": [["linkText=Log Out", "linkText"]],
+          "value": ""
+        },
+        {
+          "id": "c0040001-0000-4000-8000-000000000025",
+          "comment": "Finish session cleanly",
+          "command": "click",
+          "target": "linkText=Log Out",
+          "targets": [["linkText=Log Out", "linkText"]],
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "b7b0e8d1-4b28-4e6b-9f11-1c82b47c2012",
+      "name": "TC-012 (F-70): Open Second Account and Transfer Funds",
+      "commands": [
+        {
+          "id": "c0120001-0000-4000-8000-000000000001",
+          "comment": "Open ParaBank registration page to provision an isolated user",
+          "command": "open",
+          "target": "/parabank/register.htm",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000002",
+          "comment": "Generate unique username with team prefix",
+          "command": "executeScript",
+          "target": "return 'fins4ide12_' + Math.floor(Math.random() * 900000 + 100000)",
+          "targets": [],
+          "value": "uname12"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000003",
+          "comment": "Wait for registration form",
+          "command": "waitForElementVisible",
+          "target": "id=customer.firstName",
+          "targets": [["id=customer.firstName", "id"]],
+          "value": "10000"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000004",
+          "comment": "Enter first name",
+          "command": "type",
+          "target": "id=customer.firstName",
+          "targets": [["id=customer.firstName", "id"]],
+          "value": "Ivan"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000005",
+          "comment": "Enter last name",
+          "command": "type",
+          "target": "id=customer.lastName",
+          "targets": [["id=customer.lastName", "id"]],
+          "value": "Franchuk"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000006",
+          "comment": "Enter street address",
+          "command": "type",
+          "target": "id=customer.address.street",
+          "targets": [["id=customer.address.street", "id"]],
+          "value": "10 Khreshchatyk St"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000007",
+          "comment": "Enter city",
+          "command": "type",
+          "target": "id=customer.address.city",
+          "targets": [["id=customer.address.city", "id"]],
+          "value": "Kyiv"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000008",
+          "comment": "Enter state",
+          "command": "type",
+          "target": "id=customer.address.state",
+          "targets": [["id=customer.address.state", "id"]],
+          "value": "Kyivska"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000009",
+          "comment": "Enter zip code",
+          "command": "type",
+          "target": "id=customer.address.zipCode",
+          "targets": [["id=customer.address.zipCode", "id"]],
+          "value": "01001"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000010",
+          "comment": "Enter phone number",
+          "command": "type",
+          "target": "id=customer.phoneNumber",
+          "targets": [["id=customer.phoneNumber", "id"]],
+          "value": "380501112233"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000011",
+          "comment": "Enter SSN",
+          "command": "type",
+          "target": "id=customer.ssn",
+          "targets": [["id=customer.ssn", "id"]],
+          "value": "1234567890"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000012",
+          "comment": "Enter generated username",
+          "command": "type",
+          "target": "id=customer.username",
+          "targets": [["id=customer.username", "id"]],
+          "value": "${uname12}"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000013",
+          "comment": "Enter password",
+          "command": "type",
+          "target": "id=customer.password",
+          "targets": [["id=customer.password", "id"]],
+          "value": "FinKit#2026"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000014",
+          "comment": "Confirm password",
+          "command": "type",
+          "target": "id=repeatedPassword",
+          "targets": [["id=repeatedPassword", "id"]],
+          "value": "FinKit#2026"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000015",
+          "comment": "Submit registration",
+          "command": "click",
+          "target": "css=input[type='submit'][value='Register']",
+          "targets": [["css=input[type='submit'][value='Register']", "css:finder"]],
+          "value": ""
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000016",
+          "comment": "Wait for cabinet menu",
+          "command": "waitForElementVisible",
+          "target": "linkText=Open New Account",
+          "targets": [["linkText=Open New Account", "linkText"]],
+          "value": "10000"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000017",
+          "comment": "Navigate to Open New Account",
+          "command": "click",
+          "target": "linkText=Open New Account",
+          "targets": [["linkText=Open New Account", "linkText"]],
+          "value": ""
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000018",
+          "comment": "Wait for AJAX population of source account options",
+          "command": "waitForElementVisible",
+          "target": "css=#fromAccountId option",
+          "targets": [["css=#fromAccountId option", "css:finder"]],
+          "value": "10000"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000019",
+          "comment": "Select SAVINGS account type",
+          "command": "select",
+          "target": "id=type",
+          "targets": [["id=type", "id"]],
+          "value": "label=SAVINGS"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000020",
+          "comment": "Create second account",
+          "command": "click",
+          "target": "css=input[type='button'][value='Open New Account']",
+          "targets": [["css=input[type='button'][value='Open New Account']", "css:finder"]],
+          "value": ""
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000021",
+          "comment": "Wait for newly created account ID",
+          "command": "waitForElementVisible",
+          "target": "id=newAccountId",
+          "targets": [["id=newAccountId", "id"]],
+          "value": "10000"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000022",
+          "comment": "Store newly opened account number",
+          "command": "storeText",
+          "target": "id=newAccountId",
+          "targets": [["id=newAccountId", "id"]],
+          "value": "acc2"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000023",
+          "comment": "Navigate to Transfer Funds",
+          "command": "click",
+          "target": "linkText=Transfer Funds",
+          "targets": [["linkText=Transfer Funds", "linkText"]],
+          "value": ""
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000024",
+          "comment": "Wait for both accounts in destination dropdown",
+          "command": "waitForElementVisible",
+          "target": "css=#toAccountId option:nth-child(2)",
+          "targets": [["css=#toAccountId option:nth-child(2)", "css:finder"]],
+          "value": "10000"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000025",
+          "comment": "Enter transfer amount",
+          "command": "type",
+          "target": "id=amount",
+          "targets": [["id=amount", "id"]],
+          "value": "100.00"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000026",
+          "comment": "Select second account as destination",
+          "command": "select",
+          "target": "id=toAccountId",
+          "targets": [["id=toAccountId", "id"]],
+          "value": "label=${acc2}"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000027",
+          "comment": "Submit transfer",
+          "command": "click",
+          "target": "css=input[type='submit'][value='Transfer']",
+          "targets": [["css=input[type='submit'][value='Transfer']", "css:finder"]],
+          "value": ""
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000028",
+          "comment": "Wait for transfer confirmation block",
+          "command": "waitForElementVisible",
+          "target": "id=showResult",
+          "targets": [["id=showResult", "id"]],
+          "value": "10000"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000029",
+          "comment": "Hard assert transfer completion heading",
+          "command": "assertText",
+          "target": "css=#showResult h1.title",
+          "targets": [["css=#showResult h1.title", "css:finder"]],
+          "value": "Transfer Complete!"
+        },
+        {
+          "id": "c0120001-0000-4000-8000-000000000030",
+          "comment": "Soft verify transferred amount",
+          "command": "verifyText",
+          "target": "id=amountResult",
+          "targets": [["id=amountResult", "id"]],
+          "value": "$100.00"
+        }
+      ]
+    }
+  ],
+  "suites": [
+    {
+      "id": "b7b0e8d1-4b28-4e6b-9f11-1c82b47c3001",
+      "name": "FinKit Key UI Flows",
+      "persistSession": false,
+      "parallel": false,
+      "timeout": 300,
+      "tests": [
+        "b7b0e8d1-4b28-4e6b-9f11-1c82b47c2004",
+        "b7b0e8d1-4b28-4e6b-9f11-1c82b47c2012"
+      ]
+    }
+  ],
+  "urls": [
+    "https://parabank.parasoft.com"
+  ],
+  "plugins": []
+}
