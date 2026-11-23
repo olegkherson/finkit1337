@@ -44,7 +44,7 @@
    ```
    *(На Windows за використання портативного Maven замість `mvn` викликається повний шлях до `mvn.cmd`, наприклад `& "%USERPROFILE%\tools\apache-maven-3.9.9\bin\mvn.cmd" clean test`.)*
 
-   **Очікувана поведінка на модулі `finkit/v1`:** команда завершується з кодом виходу `1` (`BUILD FAILURE`), оскільки `10` із `23` юніт-методів (`16` із `67` викликів Surefire) обгрунтовано падають через зафіксовані дефекти та розбіжності модуля `v1` (`BUG-001...BUG-008`). Жоден падаючий тест не вимкнено через `@Disabled` і не підігнано під баг.
+   **Очікувана поведінка на модулі `finkit/v1`:** команда завершується з кодом виходу `1` (`BUILD FAILURE`), оскільки `10` із `25` юніт-методів (`16` із `69` викликів Surefire) обгрунтовано падають через зафіксовані дефекти та розбіжності модуля `v1` (`BUG-M01...BUG-M08`). Жоден падаючий тест не вимкнено через `@Disabled` і не підігнано під баг.
 
 2. **Запуск лише WebDriver UI-тестів у реальному headless Chrome (`@Tag("ui")`):**
    ```powershell
@@ -56,30 +56,32 @@
    ```powershell
    mvn test -DexcludedGroups=none
    ```
-   **Очікувана поведінка:** `Tests run: 77, Failures: 16, Errors: 0, Skipped: 0` (усі `10` UI-тестів проходять, усі `16` падінь належать задокументованим дефектам `v1`).
+   **Очікувана поведінка:** `Tests run: 79, Failures: 16, Errors: 0, Skipped: 0` (усі `10` UI-тестів проходять, усі `16` падінь належать задокументованим дефектам `v1`).
 
 4. **Перегляд звітів Surefire:**
-   Текстові та XML-звіти формуються в каталозі `target/surefire-reports/` (`*.txt`, `TEST-*.xml`), а зведений протокол прогонів зафіксовано в `docs/surefire-summary.md`.
+   Текстові та XML-звіти формуються в каталозі `target/surefire-reports/` (`*.txt`, `TEST-*.xml`), а зведений протокол прогонів зафіксовано в `docs/sprint4/surefire-summary.md`.
 
 ---
 
 ## Структура
 
 ```text
-finkit_sprint4/
-├── README.md                                  # опис проєкту, інструкція збірки, покриття та внесок
+finkit1337/
+├── README.md                                  # коренева сторінка проєкту (склад команди, посилання на docs/sprint4/README.md)
 ├── .gitignore                                 # виключення target/, .idea/, *.iml, out/, .DS_Store
 ├── pom.xml                                    # JDK 17, JUnit 5.10.2, Selenium 4.21.0, Surefire 3.2.5
-├── docs/
+├── docs/sprint4/
+│   ├── README.md                              # опис інкременту Спринту 4, інструкція збірки, покриття та внесок
 │   ├── task-board.md                          # таблиця розподілу задач команди (8 задач, 32 підзадачі)
 │   ├── coverage-matrix.md                     # матриця покриття BL-10...BL-80 із авторами і рецензентами
 │   ├── ui-scenarios.md                        # специфікація 10+3 UI-сценаріїв і 2 сценаріїв Selenium IDE
-│   ├── bug-reports.md                         # звіти про дефекти v1 у форматі Спринту 3 (BUG-001...BUG-008)
-│   ├── code-review.md                         # протокол перехресного code review (чек-листи 5.3 і 13.2)
+│   ├── bug-reports.md                         # звіти про дефекти v1 у форматі Спринту 3 (BUG-M01...BUG-M08)
+│   ├── code-review.md                         # протокол перехресного code review (Раунд 1 і 2, чек-листи 5.3 і 13.2)
 │   ├── surefire-summary.md                    # протокол 3 контрольних запусків Surefire та SHA-256 v1
 │   ├── quality-dossier-v4.md                  # Досьє якості v4 (розділ "Автоматизація")
 │   ├── audit.md                               # протокол відтворення "з нуля" і аудиту АО
-│   └── retro.md                               # протокол ретроспективи Start/Stop/Continue
+│   ├── retro.md                               # протокол ретроспективи Start/Stop/Continue
+│   └── attachments/                           # допоміжні вкладення
 ├── selenium-ide/
 │   ├── finkit.side                            # проєкт Selenium IDE (JSON 2.0, сценарії TC-004 і TC-012)
 │   └── export/
@@ -93,9 +95,9 @@ finkit_sprint4/
     │   ├── TransferError.java
     │   └── TransferValidator.java
     └── test/java/ua/kpi/tzyapz/finkit/
-        ├── AccountLedgerTest.java             # 7 юніт-тестів (СМ: 5, АО: 2)
+        ├── AccountLedgerTest.java             # 8 юніт-тестів (СМ: 5, АО: 3)
         ├── LoanCalculatorTest.java            # 7 юніт-тестів (ТА: 5, КТ: 2)
-        ├── TransferValidatorTest.java         # 9 юніт-тестів (ІТ: 5, КТ: 2, АО: 2)
+        ├── TransferValidatorTest.java         # 10 юніт-тестів (ІТ: 5, КТ: 3, АО: 2)
         └── ui/
             ├── AccountsAndPaymentsUiTest.java # 5 UI-тестів (TC-008, TC-012, TC-018, TC-021, TC-022)
             └── AuthAndPublicUiTest.java       # 5 UI-тестів (TC-033, TC-001, TC-003, TC-004, TC-007)
@@ -105,35 +107,37 @@ finkit_sprint4/
 
 ## Що покрито
 
-### Юніт-тести JUnit 5 (23 методи, `67` викликів Surefire)
+### Юніт-тести JUnit 5 (25 методів, `69` викликів Surefire)
 
 | Тест | Вимога SRS | Тест-кейс / код | Автор |
 | --- | --- | --- | --- |
-| `LoanCalculatorTest#monthlyPayment_validRatesAndReferenceCases_matchesAnnuityFormula` | `BL-10` | `ТА-1` (`BUG-001`) | ТА Закусило Дмитрій |
-| `LoanCalculatorTest#totalInterest_referenceAndNonDivisibleRate_usesRoundedMonthlyPayment` | `BL-20` | `ТА-2` (`BUG-001`) | ТА Закусило Дмитрій |
-| `LoanCalculatorTest#monthlyPayment_minBoundaryMonths3_isAccepted` | `BL-30`, `BL-10` | `ТА-3` (`BUG-002`) | ТА Закусило Дмитрій |
+| `LoanCalculatorTest#monthlyPayment_validRatesAndReferenceCases_matchesAnnuityFormula` | `BL-10` | `ТА-1` (`BUG-M01`) | ТА Закусило Дмитрій |
+| `LoanCalculatorTest#totalInterest_referenceAndNonDivisibleRate_usesRoundedMonthlyPayment` | `BL-20` | `ТА-2` (`BUG-M01`) | ТА Закусило Дмитрій |
+| `LoanCalculatorTest#monthlyPayment_minBoundaryMonths3_isAccepted` | `BL-30`, `BL-10` | `ТА-3` (`BUG-M02`) | ТА Закусило Дмитрій |
 | `LoanCalculatorTest#monthlyPayment_inclusivePrincipalRateAndMaxMonthsBoundaries_succeed` | `BL-30` | `ТА-4` | ТА Закусило Дмитрій |
 | `LoanCalculatorTest#monthlyPayment_outOfBoundsOrNullParameters_throwsIllegalArgumentException` | `BL-30` | `ТА-5` | ТА Закусило Дмитрій |
-| `LoanCalculatorTest#totalInterest_boundaryRatesAndHalfUpScale_returnsTwoDecimalPlaces` | `BL-10`, `BL-20`, `BL-30` | `КТ-1` (`BUG-001`) | КТ Бойко Олег |
+| `LoanCalculatorTest#totalInterest_boundaryRatesAndHalfUpScale_returnsTwoDecimalPlaces` | `BL-10`, `BL-20`, `BL-30` | `КТ-1` (`BUG-M01`) | КТ Бойко Олег |
 | `LoanCalculatorTest#totalInterest_outOfBounds_throwsIllegalArgumentException` | `BL-30`, `BL-20` | `КТ-2` | КТ Бойко Олег |
 | `TransferValidatorTest#validate_validTransferAndBelowDailyLimit_returnsEmptyList` | `BL-40`, `BL-50` | `ІТ-1` | ІТ Бурлачка Артем |
-| `TransferValidatorTest#validate_invalidToIban_returnsInvalidToIbanError` | `BL-50`, `BL-40` | `ІТ-2` (`BUG-003`) | ІТ Бурлачка Артем |
-| `TransferValidatorTest#validate_exactDailyLimit50000_isAllowed` | `BL-40` | `ІТ-3` (`BUG-004`) | ІТ Бурлачка Артем |
+| `TransferValidatorTest#validate_invalidToIban_returnsInvalidToIbanError` | `BL-50`, `BL-40` | `ІТ-2` (`BUG-M03`) | ІТ Бурлачка Артем |
+| `TransferValidatorTest#validate_exactDailyLimit50000_isAllowed` | `BL-40` | `ІТ-3` (`BUG-M04`) | ІТ Бурлачка Артем |
 | `TransferValidatorTest#validate_aboveDailyLimit50000_returnsDailyLimitExceeded` | `BL-40` | `ІТ-4` | ІТ Бурлачка Артем |
 | `TransferValidatorTest#validate_nonPositiveOrNullAmount_returnsAmountNotPositive` | `BL-40` | `ІТ-5` | ІТ Бурлачка Артем |
-| `TransferValidatorTest#isValidIban_validAndInvalidFormats_matchesBl50` | `BL-50` | `КТ-3` (`BUG-007`) | КТ Бойко Олег |
-| `TransferValidatorTest#validate_sameAccountAndMultipleViolations_collectsAllExpectedErrors` | `BL-40`, `BL-50` | `КТ-4` | КТ Бойко Олег |
+| `TransferValidatorTest#isValidIban_validAndInvalidFormats_matchesBl50` | `BL-50` | `КТ-3` (`BUG-M07`) | КТ Бойко Олег |
+| `TransferValidatorTest#validate_sameAccount_returnsSameAccountError` | `BL-40`, `BL-50` | `КТ-4` | КТ Бойко Олег |
+| `TransferValidatorTest#validate_multipleViolations_collectsAllExpectedErrors` | `BL-40`, `BL-50` | `КТ-5` | КТ Бойко Олег |
 | `TransferValidatorTest#validate_invalidFromIban_returnsInvalidFromIbanError` | `BL-50`, `BL-40` | `АО-1` | АО Сушко Ілля |
 | `TransferValidatorTest#validate_amountAtAndAboveBalanceBoundary_validatesInsufficientFunds` | `BL-40` | `АО-2` | АО Сушко Ілля |
 | `AccountLedgerTest#deposit_validAmountsAndHalfUpRounding_updatesBalance` | `BL-70`, `BL-80` | `СМ-1` | СМ Топчій Микита |
 | `AccountLedgerTest#withdraw_partialValidAmount_reducesBalance` | `BL-70`, `BL-80` | `СМ-2` | СМ Топчій Микита |
-| `AccountLedgerTest#withdraw_exactFullBalance_setsBalanceToZero` | `BL-70`, `BL-80` | `СМ-3` (`BUG-005`) | СМ Топчій Микита |
-| `AccountLedgerTest#history_multipleOperations_returnsChronologicalOrder` | `BL-70`, `BL-80` | `СМ-4` (`BUG-006`) | СМ Топчій Микита |
+| `AccountLedgerTest#withdraw_exactFullBalance_setsBalanceToZero` | `BL-70`, `BL-80` | `СМ-3` (`BUG-M05`) | СМ Топчій Микита |
+| `AccountLedgerTest#history_multipleOperations_returnsChronologicalOrder` | `BL-70`, `BL-80` | `СМ-4` (`BUG-M06`) | СМ Топчій Микита |
 | `AccountLedgerTest#depositAndWithdraw_zeroOrNegativeOrNullAmount_throwsAndPreservesBalance` | `BL-70`, `BL-80` | `СМ-5` | СМ Топчій Микита |
-| `AccountLedgerTest#withdraw_amountAboveBalance_throwsAndLeavesBalanceUnchanged` | `BL-70`, `BL-80` | `АО-3` (`BUG-008`) | АО Сушко Ілля |
-| `AccountLedgerTest#deposit_upperBoundary999999999_99_andImmutableHistory_succeeds` | `BL-80`, `BL-70` | `АО-4` | АО Сушко Ілля |
+| `AccountLedgerTest#withdraw_amountAboveBalance_throwsAndLeavesBalanceUnchanged` | `BL-70`, `BL-80` | `АО-3` (`BUG-M08`) | АО Сушко Ілля |
+| `AccountLedgerTest#deposit_upperBoundary999999999_99_updatesBalanceAndScale` | `BL-80`, `BL-70` | `АО-4` | АО Сушко Ілля |
+| `AccountLedgerTest#history_returnedListIsUnmodifiable_throwsOnMutation` | `BL-80`, `BL-70` | `АО-5` | АО Сушко Ілля |
 
-*(Примітка щодо `BL-60`: файл локального реєстру `resources/recipients.csv` та логіка перевірки реєстру одержувачів відсутні у постачанні модуля `finkit/v1`, тому `BL-60` прозоро зафіксовано в `docs/coverage-matrix.md` як нереалізоване в `v1`.)*
+*(Примітка щодо `BL-60`: файл локального реєстру `resources/recipients.csv` та логіка перевірки реєстру одержувачів відсутні у постачанні модуля `finkit/v1`, тому `BL-60` прозоро зафіксовано в `docs/sprint4/coverage-matrix.md` як нереалізоване в `v1`.)*
 
 ### UI-тести WebDriver (`@Tag("ui")`, 10 сценаріїв) і Selenium IDE (2 сценарії)
 
@@ -156,40 +160,32 @@ finkit_sprint4/
 
 ## Дефекти
 
-Повні картки за форматом Спринту 3 (кроки відтворення, фактичні значення Surefire, очікування за `SRS-1.1.md`, рецензії) наведено в `docs/bug-reports.md`:
+Повні картки за форматом Спринту 3 (кроки відтворення, фактичні значення Surefire, очікування за `SRS-1.1.md`, рецензії) наведено в `docs/sprint4/bug-reports.md`:
 
 | Bug ID | Короткий опис дефекту модуля `finkit/v1` | Вимога BL | Severity | Priority | Пов'язані тести |
 | --- | --- | --- | :---: | :---: | --- |
-| `BUG-001` | Проміжне округлення місячної ставки `i` до 4 знаків у `LoanCalculator` спотворює платіж і переплату | `BL-10`, `BL-20` | Major | P2 | `ТА-1`, `ТА-2`, `КТ-1` |
-| `BUG-002` | `LoanCalculator` відхиляє включну нижню межу строку 3 місяці (`months <= MIN_MONTHS`) | `BL-30`, `BL-10` | Major | P2 | `ТА-3` |
-| `BUG-003` | `TransferValidator` не перевіряє формат `toIban` і не повертає `INVALID_TO_IBAN` | `BL-50`, `BL-40` | Major | P2 | `ІТ-2` |
-| `BUG-004` | `TransferValidator` блокує переказ при `todaySpent + amount == 50 000.00` (`>= 0` замість `> 0`) | `BL-40` | Major | P2 | `ІТ-3` |
-| `BUG-005` | `AccountLedger.withdraw` забороняє зняття повного балансу `amount == balance` (`>= 0`) | `BL-70`, `BL-80` | Major | P2 | `СМ-3` |
-| `BUG-006` | `AccountLedger.history` повертає операції у зворотному порядку (`Collections.reverse`) | `BL-70`, `BL-80` | Major | P2 | `СМ-4` |
-| `BUG-007` | `TransferValidator.isValidIban` відхиляє валідний IBAN із пробілами всупереч `BL-50` | `BL-50` | Normal | P3 | `КТ-3` |
-| `BUG-008` | `AccountLedger.withdraw` при овердрафті кидає `IllegalStateException` замість `IllegalArgumentException` за `BL-70` | `BL-70`, `BL-80` | Normal | P3 | `АО-3` |
+| `BUG-M01` | Проміжне округлення місячної ставки `i` до 4 знаків у `LoanCalculator` спотворює платіж і переплату | `BL-10`, `BL-20` | Major | P2 | `ТА-1`, `ТА-2`, `КТ-1` |
+| `BUG-M02` | `LoanCalculator` відхиляє включну нижню межу строку 3 місяці (`months <= MIN_MONTHS`) | `BL-30`, `BL-10` | Major | P2 | `ТА-3` |
+| `BUG-M03` | `TransferValidator` не перевіряє формат `toIban` і не повертає `INVALID_TO_IBAN` | `BL-50`, `BL-40` | Major | P2 | `ІТ-2` |
+| `BUG-M04` | `TransferValidator` блокує переказ при `todaySpent + amount == 50 000.00` (`>= 0` замість `> 0`) | `BL-40` | Major | P2 | `ІТ-3` |
+| `BUG-M05` | `AccountLedger.withdraw` забороняє зняття повного балансу `amount == balance` (`>= 0`) | `BL-70`, `BL-80` | Major | P2 | `СМ-3` |
+| `BUG-M06` | `AccountLedger.history` повертає операції у зворотному порядку (`Collections.reverse`) | `BL-70`, `BL-80` | Major | P2 | `СМ-4` |
+| `BUG-M07` | `TransferValidator.isValidIban` відхиляє валідний IBAN із пробілами всупереч `BL-50` | `BL-50` | Normal | P3 | `КТ-3` |
+| `BUG-M08` | `AccountLedger.withdraw` при овердрафті кидає `IllegalStateException` замість `IllegalArgumentException` за `BL-70` | `BL-70`, `BL-80` | Normal | P3 | `АО-3` |
 
 ---
 
 ## Версії
 
 - **`v1` - Спринт 4 (поточний стан модуля `ua.kpi.tzyapz.finkit`):**
-  - `mvn clean test` (юніт-тести): `23` унікальні методи (`13` пройдено, `10` падають через дефекти `BUG-001...BUG-008`), `67` викликів Surefire (`51` пройдено, `16` провалено, `0` помилок, `0` пропущених).
+  - `mvn clean test` (юніт-тести): `25` унікальні методи (`15` пройдено, `10` падають через дефекти `BUG-M01...BUG-M08`), `69` викликів Surefire (`53` пройдено, `16` провалено, `0` помилок, `0` пропущених).
   - `mvn test -DexcludedGroups=none -Dtest="*UiTest"` (UI-тести): `10` із `10` сценаріїв проходять у headless Chrome (`BUILD SUCCESS`).
-  - `mvn test -DexcludedGroups=none` (повний набір): `77` викликів (`61` пройдено, `16` провалено, `0` помилок, `0` пропущених).
-- **`v2` - Спринт 5 (заплановано):** виправлення дефектів `BUG-001...BUG-008`, реалізація `BL-60` (`resources/recipients.csv`) та повторна регресія на оновленому модулі.
+  - `mvn test -DexcludedGroups=none` (повний набір): `79` викликів (`63` пройдено, `16` провалено, `0` помилок, `0` пропущених).
+- **`v2` - Спринт 5 (заплановано):** виправлення дефектів `BUG-M01...BUG-M08`, реалізація `BL-60` (`resources/recipients.csv`) та повторна регресія на оновленому модулі.
 
 **Персональний внесок учасників у юніт-тести JUnit 5 (при нормі >= 3 на особу та >= 20 на команду):**
 - Закусило Дмитрій (`ТА`): **5** юніт-тестів (`ТА-1...ТА-5` у `LoanCalculatorTest`);
 - Бурлачка Артем (`ІТ`): **5** юніт-тестів (`ІТ-1...ІТ-5` у `TransferValidatorTest`), **10** WebDriver UI-тестів і `finkit.side` + `export/`;
-- Бойко Олег (`КТ`): **4** юніт-тести (`КТ-1`, `КТ-2` у `LoanCalculatorTest`; `КТ-3`, `КТ-4` у `TransferValidatorTest`);
+- Бойко Олег (`КТ`): **5** юніт-тестів (`КТ-1`, `КТ-2` у `LoanCalculatorTest`; `КТ-3`, `КТ-4`, `КТ-5` у `TransferValidatorTest`);
 - Топчій Микита (`СМ`): **5** юніт-тестів (`СМ-1...СМ-5` у `AccountLedgerTest`);
-- Сушко Ілля (`АО`): **4** юніт-тести (`АО-1`, `АО-2` у `TransferValidatorTest`; `АО-3`, `АО-4` у `AccountLedgerTest`).
-
----
-
-## Спринт 4 (Автоматизація: JUnit 5 і Selenium WebDriver)
-
-- Докладна інструкція збірки, покриття `BL-10...BL-80` та підсумки прогонів: [`docs/sprint4/README.md`](docs/sprint4/README.md)
-- Досьє якості v4, матриця покриття та звіти про дефекти (`BUG-M01...BUG-M08`): [`docs/sprint4/quality-dossier-v4.md`](docs/sprint4/quality-dossier-v4.md), [`docs/sprint4/coverage-matrix.md`](docs/sprint4/coverage-matrix.md), [`docs/sprint4/bug-reports.md`](docs/sprint4/bug-reports.md)
-- Команда запуску юніт-тестів JUnit 5: `mvn clean test`
+- Сушко Ілля (`АО`): **5** юніт-тестів (`АО-1`, `АО-2` у `TransferValidatorTest`; `АО-3`, `АО-4`, `АО-5` у `AccountLedgerTest`).
