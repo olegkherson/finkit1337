@@ -148,6 +148,53 @@ class LoanCalculatorTest {
         assertNotNull(ex.getMessage(), "Виняток має містити діагностичне повідомлення");
     }
 
+
+    // Автор: КТ Бойко Олег | Рецензент: СМ Топчій Микита | Вимога: BL-10, BL-20, BL-30
+    // Виявляє BUG-001: проміжне округлення місячної ставки i до 4 знаків у v1 спотворює переплату на граничних ставках 5.00 % і 40.00 %.
+    @Test
+    @DisplayName("КТ-1 (BL-10, BL-20, BL-30): totalInterest на граничних ставках 5.00 % і 40.00 % зберігає точність та шкалу 2")
+    void totalInterest_boundaryRatesAndHalfUpScale_returnsTwoDecimalPlaces() {
+        // Arrange
+        BigDecimal minPrincipal = new BigDecimal("1000.00");
+        BigDecimal minRate = new BigDecimal("5.00");
+        int minSafeMonths = 4;
+
+        BigDecimal maxPrincipal = new BigDecimal("1000000.00");
+        BigDecimal maxRate = new BigDecimal("40.00");
+        int maxMonths = 60;
+
+        // Act
+        BigDecimal minBoundaryInterest = calculator.totalInterest(minPrincipal, minRate, minSafeMonths);
+        BigDecimal maxBoundaryInterest = calculator.totalInterest(maxPrincipal, maxRate, maxMonths);
+
+        // Assert
+        assertAll(
+            () -> assertEquals(2, minBoundaryInterest.scale(),
+                "Шкала переплати для нижньої границі ставки 5.00 % має дорівнювати 2"),
+            () -> assertEquals(new BigDecimal("10.44"), minBoundaryInterest,
+                "Очікувана переплата для (1000.00, 5.00 %, 4 міс.): 252.61 * 4 - 1000.00 = 10.44"),
+            () -> assertEquals(2, maxBoundaryInterest.scale(),
+                "Шкала переплати для верхньої границі ставки 40.00 % має дорівнювати 2"),
+            () -> assertEquals(new BigDecimal("1325098.40"), maxBoundaryInterest,
+                "Очікувана переплата для (1000000.00, 40.00 %, 60 міс.): 38751.64 * 60 - 1000000.00 = 1325098.40")
+        );
+    }
+
+    // Автор: КТ Бойко Олег | Рецензент: СМ Топчій Микита | Вимога: BL-30, BL-20
+    @ParameterizedTest(name = "totalInterest поза межами або null: P={0}, r={1}, n={2}")
+    @MethodSource("outOfBoundsAndNullInputs")
+    @DisplayName("КТ-2 (BL-30, BL-20): totalInterest кидає IllegalArgumentException при виході за межі або null")
+    void totalInterest_outOfBounds_throwsIllegalArgumentException(
+            BigDecimal principal, BigDecimal rate, int months) {
+        // Arrange + Act + Assert
+        IllegalArgumentException ex = assertThrows(
+            IllegalArgumentException.class,
+            () -> calculator.totalInterest(principal, rate, months),
+            "totalInterest при порушенні меж BL-30 або null має кидати IllegalArgumentException"
+        );
+        assertNotNull(ex.getMessage(), "Виняток totalInterest має містити діагностичне повідомлення");
+    }
+    
     private static Stream<Arguments> outOfBoundsAndNullInputs() {
         return Stream.of(
             Arguments.of(new BigDecimal("999.99"), new BigDecimal("12"), 12),
