@@ -176,6 +176,84 @@ class TransferValidatorTest {
         );
     }
 
+// Автор: КТ Бойко Олег | Рецензент: СМ Топчій Микита | Вимога: BL-50
+    // Виявляє BUG-007: за SRS-1.1 (BL-50) пробіли мають вилучатися перед перевіркою формату, тоді як v1 у isValidIban цього не робить.
+    @ParameterizedTest(name = "isValidIban(\"{0}\") -> {1}")
+    @MethodSource("ibanFormatCases")
+    @DisplayName("КТ-3 (BL-50): isValidIban перевіряє формат UA + 27 цифр із вилученням пробілів")
+    void isValidIban_validAndInvalidFormats_matchesBl50(String iban, boolean expectedValid) {
+        // Arrange + Act
+        boolean actualValid = TransferValidator.isValidIban(iban);
+
+        // Assert
+        assertEquals(
+            expectedValid,
+            actualValid,
+            "Невідповідність перевірки IBAN '" + iban + "' правилу BL-50 (UA + 27 цифр, пробіли вилучаються)"
+        );
+    }
+
+    // Автор: КТ Бойко Олег | Рецензент: СМ Топчій Микита | Вимога: BL-40, BL-50
+    @Test
+    @DisplayName("КТ-4 (BL-40, BL-50): validate фіксує збіг рахунків, нестачу коштів та агрегує декілька порушень")
+    void validate_sameAccountAndMultipleViolations_collectsAllExpectedErrors() {
+        // Arrange
+        BigDecimal standardBalance = new BigDecimal("5000.00");
+
+        // Act
+        List<TransferError> sameAccountErrors = validator.validate(
+            VALID_FROM_IBAN, VALID_FROM_IBAN, new BigDecimal("100.00"), standardBalance, BigDecimal.ZERO);
+        boolean sameAccountValid = validator.isValid(
+            VALID_FROM_IBAN, VALID_FROM_IBAN, new BigDecimal("100.00"), standardBalance, BigDecimal.ZERO);
+
+        List<TransferError> insufficientFundsErrors = validator.validate(
+            VALID_FROM_IBAN, VALID_TO_IBAN, new BigDecimal("5000.01"), standardBalance, BigDecimal.ZERO);
+        boolean insufficientFundsValid = validator.isValid(
+            VALID_FROM_IBAN, VALID_TO_IBAN, new BigDecimal("5000.01"), standardBalance, BigDecimal.ZERO);
+
+        List<TransferError> combinedErrors = validator.validate(
+            "BAD_IBAN", "BAD_IBAN", new BigDecimal("60000.00"), standardBalance, BigDecimal.ZERO);
+        boolean combinedValid = validator.isValid(
+            "BAD_IBAN", "BAD_IBAN", new BigDecimal("60000.00"), standardBalance, BigDecimal.ZERO);
+
+        // Assert
+        assertAll(
+            () -> assertTrue(sameAccountErrors.contains(TransferError.SAME_ACCOUNT),
+                "Збіг fromIban і toIban має повертати SAME_ACCOUNT: " + sameAccountErrors),
+            () -> assertEquals(1, sameAccountErrors.size(),
+                "Для збігу валідних рахунків очікується рівно 1 порушення: " + sameAccountErrors),
+            () -> assertFalse(sameAccountValid, "isValid має повертати false при збігу рахунків"),
+            () -> assertTrue(insufficientFundsErrors.contains(TransferError.INSUFFICIENT_FUNDS),
+                "Сума 5000.01 > 5000.00 має повертати INSUFFICIENT_FUNDS: " + insufficientFundsErrors),
+            () -> assertEquals(1, insufficientFundsErrors.size(),
+                "Для перевищення балансу очікується рівно 1 порушення: " + insufficientFundsErrors),
+            () -> assertFalse(insufficientFundsValid, "isValid має повертати false при нестачі коштів"),
+            () -> assertTrue(combinedErrors.contains(TransferError.INVALID_FROM_IBAN),
+                "Комбінований кейс має містити INVALID_FROM_IBAN: " + combinedErrors),
+            () -> assertTrue(combinedErrors.contains(TransferError.SAME_ACCOUNT),
+                "Комбінований кейс має містити SAME_ACCOUNT: " + combinedErrors),
+            () -> assertTrue(combinedErrors.contains(TransferError.INSUFFICIENT_FUNDS),
+                "Комбінований кейс має містити INSUFFICIENT_FUNDS: " + combinedErrors),
+            () -> assertTrue(combinedErrors.contains(TransferError.DAILY_LIMIT_EXCEEDED),
+                "Комбінований кейс має містити DAILY_LIMIT_EXCEEDED: " + combinedErrors),
+            () -> assertFalse(combinedValid, "isValid має повертати false для комбінації порушень")
+        );
+    }
+
+ private static Stream<Arguments> ibanFormatCases() {
+        return Stream.of(
+            Arguments.of("UA213223130000026007233566001", true),
+            Arguments.of("UA21 3223 1300 0002 6007 2335 6600 1", true),
+            Arguments.of("ua213223130000026007233566001", false),
+            Arguments.of("PL213223130000026007233566001", false),
+            Arguments.of("UA21322313000002600723356600", false),
+            Arguments.of("UA2132231300000260072335660012", false),
+            Arguments.of("UA21322313000002600723356600A", false),
+            Arguments.of("", false),
+            Arguments.of(null, false)
+        );
+    }
+
     private static Stream<String> invalidIbanInputs() {
         return Stream.of(
             "UA123",
