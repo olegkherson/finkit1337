@@ -8,24 +8,24 @@
 
 ---
 
-Очікування: `docs/sprint2/SRS-1.1.md` (розд. 5, `BL-10...BL-80`) та `docs/sprint2/test-plan.md`.
+Очікування: `docs/sprint2/SRS-1.1.md` (розд. 5, `BL-10...BL-80`) та `docs/sprint2/test-plan.md`. Для усунення колізії нумерації з UI-дефектами Спринту 3 (`BUG-001...BUG-025`, GitHub Issues `#13-#35`) модульним дефектам `finkit/v1` присвоєно унікальні ідентифікатори `BUG-M01...BUG-M08` (Issues `#36-#43`).
 
 ## Зведення
 
 | Bug ID | Title | Severity | Priority | Status | Review | Linked Test | Вимога |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| BUG-001 | Проміжне округлення місячної ставки i до 4 знаків у LoanCalculator спотворює платіж і переплату | Major | P2 | New | reviewed | `LoanCalculatorTest#monthlyPayment_validRatesAndReferenceCases_matchesAnnuityFormula`, `totalInterest_referenceAndNonDivisibleRate_usesRoundedMonthlyPayment`, `totalInterest_boundaryRatesAndHalfUpScale_returnsTwoDecimalPlaces` | `BL-10`, `BL-20` |
-| BUG-002 | LoanCalculator відхиляє включну нижню межу строку кредиту 3 місяці через умову months <= MIN_MONTHS | Major | P2 | New | reviewed | `LoanCalculatorTest#monthlyPayment_minBoundaryMonths3_isAccepted` | `BL-30`, `BL-10` |
-| BUG-003 | TransferValidator не перевіряє формат IBAN одержувача toIban і не повертає INVALID_TO_IBAN | Major | P2 | New | reviewed | `TransferValidatorTest#validate_invalidToIban_returnsInvalidToIbanError` | `BL-50`, `BL-40` |
-| BUG-004 | TransferValidator блокує переказ при досягненні точної межі денного ліміту 50 000.00 грн через умову >= 0 | Major | P2 | New | reviewed | `TransferValidatorTest#validate_exactDailyLimit50000_isAllowed` | `BL-40` |
-| BUG-005 | AccountLedger забороняє зняття повного залишку рахунку amount == balance через умову >= 0 | Major | P2 | New | reviewed | `AccountLedgerTest#withdraw_exactFullBalance_setsBalanceToZero` | `BL-70`, `BL-80` |
-| BUG-006 | AccountLedger.history повертає історію операцій у зворотному порядку через Collections.reverse | Major | P2 | New | reviewed | `AccountLedgerTest#history_multipleOperations_returnsChronologicalOrder` | `BL-70`, `BL-80` |
-| BUG-007 | TransferValidator.isValidIban відхиляє валідний IBAN із пробілами всупереч правилу BL-50 | Normal | P3 | New | reviewed | `TransferValidatorTest#isValidIban_validAndInvalidFormats_matchesBl50` | `BL-50` |
-| BUG-008 | AccountLedger.withdraw при овердрафті кидає IllegalStateException замість IllegalArgumentException за BL-70 | Normal | P3 | New | reviewed | `AccountLedgerTest#withdraw_amountAboveBalance_throwsAndLeavesBalanceUnchanged` | `BL-70`, `BL-80` |
+| BUG-M01 | Проміжне округлення місячної ставки i до 4 знаків у LoanCalculator спотворює платіж і переплату | Major | P2 | New | reviewed | `LoanCalculatorTest#monthlyPayment_validRatesAndReferenceCases_matchesAnnuityFormula`, `totalInterest_referenceAndNonDivisibleRate_usesRoundedMonthlyPayment`, `totalInterest_boundaryRatesAndHalfUpScale_returnsTwoDecimalPlaces` | `BL-10`, `BL-20` |
+| BUG-M02 | LoanCalculator відхиляє включну нижню межу строку кредиту 3 місяці через умову months <= MIN_MONTHS | Major | P2 | New | reviewed | `LoanCalculatorTest#monthlyPayment_minBoundaryMonths3_isAccepted` | `BL-30`, `BL-10` |
+| BUG-M03 | TransferValidator не перевіряє формат IBAN одержувача toIban і не повертає INVALID_TO_IBAN | Major | P2 | New | reviewed | `TransferValidatorTest#validate_invalidToIban_returnsInvalidToIbanError` | `BL-50`, `BL-40` |
+| BUG-M04 | TransferValidator блокує переказ при досягненні точної межі денного ліміту 50 000.00 грн через умову >= 0 | Major | P2 | New | reviewed | `TransferValidatorTest#validate_exactDailyLimit50000_isAllowed` | `BL-40` |
+| BUG-M05 | AccountLedger забороняє зняття повного залишку рахунку amount == balance через умову >= 0 | Major | P2 | New | reviewed | `AccountLedgerTest#withdraw_exactFullBalance_setsBalanceToZero` | `BL-70`, `BL-80` |
+| BUG-M06 | AccountLedger.history повертає історію операцій у зворотному порядку через Collections.reverse | Major | P2 | New | reviewed | `AccountLedgerTest#history_multipleOperations_returnsChronologicalOrder` | `BL-70`, `BL-80` |
+| BUG-M07 | TransferValidator.isValidIban відхиляє валідний IBAN із пробілами всупереч правилу BL-50 | Normal | P3 | New | reviewed | `TransferValidatorTest#isValidIban_validAndInvalidFormats_matchesBl50` | `BL-50` |
+| BUG-M08 | AccountLedger.withdraw при овердрафті кидає IllegalStateException замість IllegalArgumentException за BL-70 | Normal | P3 | New | reviewed | `AccountLedgerTest#withdraw_amountAboveBalance_throwsAndLeavesBalanceUnchanged` | `BL-70`, `BL-80` |
 
 ## Повні звіти
 
-## BUG-001: Проміжне округлення місячної ставки i до 4 знаків у LoanCalculator спотворює платіж і переплату
+## BUG-M01: Проміжне округлення місячної ставки i до 4 знаків у LoanCalculator спотворює платіж і переплату
 
 **Severity:** Major  
 **Priority:** P2  
@@ -64,46 +64,46 @@
 - `totalInterest(1000000.00, 40.00, 60)` = `1325098.40`.
 
 ### Environment
-JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`LoanCalculator.java:36-38`), Windows 11, 03.11.2026.
+JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`LoanCalculator.java:36-38`), Windows 11, команда запуску: `mvn clean test`, 03.11.2026.
 
 ### Attachments
-- `target/surefire-reports/ua.kpi.tzyapz.finkit.LoanCalculatorTest.txt` - зафіксовано падіння `ТА-1` (`9265.37`, `8789.73`, `8562.58`), `ТА-2` (`11184.44`, `5476.76`) та `КТ-1` (`10.52` замість `10.44` на рядку `LoanCalculatorTest.java:173`, `1323505.40` замість `1325098.40` на рядку `LoanCalculatorTest.java:177`); зведення у `docs/surefire-summary.md`.
+- `target/surefire-reports/ua.kpi.tzyapz.finkit.LoanCalculatorTest.txt` - зафіксовано падіння `ТА-1` (`9265.37`, `8789.73`, `8562.58`), `ТА-2` (`11184.44`, `5476.76`) та `КТ-1` (`10.52` замість `10.44` на рядку `LoanCalculatorTest.java:173`, `1323505.40` замість `1325098.40` на рядку `LoanCalculatorTest.java:177`); зведення у `docs/sprint4/surefire-summary.md`.
 
 ---
 
-## BUG-002: LoanCalculator відхиляє включну нижню межу строку кредиту 3 місяці через умову months <= MIN_MONTHS
+## BUG-M02: LoanCalculator відхиляє включну нижню межу строку кредиту 3 місяці через умову months <= MIN_MONTHS
 
 **Severity:** Major  
 **Priority:** P2  
 **Status:** New  
 **Review:** reviewed  
 **Linked:** `LoanCalculatorTest#monthlyPayment_minBoundaryMonths3_isAccepted` (`ТА-3`); `BL-30`, `BL-10`  
-**Reporter:** Закусило Дмитрій, 03.11.2026  
-**Reviewer:** Топчій Микита, 07.11.2026
+**Reporter:** Закусило Дмитрій, 03.11.2026 (оновлено вхідну ставку в `ТА-3` на `12.00 %` 23.11.2026)  
+**Reviewer:** Топчій Микита, 23.11.2026
 
 ### Description
 Вимога `BL-30` (`SRS-1.1.md`), Javadoc методу `LoanCalculator.monthlyPayment` і текст повідомлення винятку встановлюють допустимий строк кредиту `3..60` місяців включно (`MIN_MONTHS = 3`). Фактично у приватному методі `LoanCalculator.validate` (`LoanCalculator.java:67`) записано сувору нерівність `if (months <= MIN_MONTHS || months > MAX_MONTHS)`, через що граничне значення `months = 3` помилково відхиляється з `IllegalArgumentException`. Дефект унеможливлює розрахунок кредиту на мінімальний дозволений строк 3 місяці як у `monthlyPayment`, так і в `totalInterest`. Severity Major: валідний граничний клас даних повністю блокується винятком без альтернативного сценарію для 3 місяців. Priority P2: не перешкоджає проходженню решти тестів Спринту 4, але потребує виправлення в `v2` (`months < MIN_MONTHS`).
 
 ### Steps to reproduce
 1. Створити екземпляр `LoanCalculator calculator = new LoanCalculator();` (модуль `finkit/v1`).
-2. Передати мінімально допустимі за `BL-30` параметри: `principal = new BigDecimal("1000.00")`, `annualRatePercent = new BigDecimal("5.00")`, `months = 3`.
+2. Передати мінімально допустимі за `BL-30` параметри: `principal = new BigDecimal("1000.00")`, `annualRatePercent = new BigDecimal("12.00")`, `months = 3` (ставку `12.00 %` обрано кратною 12, щоб ізолювати `BUG-M02` від `BUG-M01`).
 3. Викликати `calculator.monthlyPayment(principal, annualRatePercent, 3)`.
 
 ### Actual result
 Метод кидає `java.lang.IllegalArgumentException: Строк має бути в межах 3..60 місяців` (стектрейс: `LoanCalculator.validate(LoanCalculator.java:68)` -> `LoanCalculator.monthlyPayment(LoanCalculator.java:35)`).
 
 ### Expected result
-За `BL-30` та `BL-10` строк `months = 3` є включною нижньою межею, тому виняток не кидається, а `monthlyPayment(1000.00, 5.00, 3)` повертає `336.11` (без проміжного округлення `i`).
+За `BL-30` та `BL-10` строк `months = 3` є включною нижньою межею, тому виняток не кидається, а `monthlyPayment(1000.00, 12.00, 3)` повертає `340.02`.
 
 ### Environment
-JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`LoanCalculator.java:67`), Windows 11, 03.11.2026.
+JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`LoanCalculator.java:67`), Windows 11, команда запуску: `mvn clean test`, 03.11.2026 (перевірено 23.11.2026).
 
 ### Attachments
-- `target/surefire-reports/ua.kpi.tzyapz.finkit.LoanCalculatorTest.txt` - стектрейс падіння `ТА-3` на `LoanCalculator.validate:68`; зведення у `docs/surefire-summary.md`.
+- `target/surefire-reports/ua.kpi.tzyapz.finkit.LoanCalculatorTest.txt` - стектрейс падіння `ТА-3` на `LoanCalculator.validate:68`; зведення у `docs/sprint4/surefire-summary.md`.
 
 ---
 
-## BUG-003: TransferValidator не перевіряє формат IBAN одержувача toIban і не повертає INVALID_TO_IBAN
+## BUG-M03: TransferValidator не перевіряє формат IBAN одержувача toIban і не повертає INVALID_TO_IBAN
 
 **Severity:** Major  
 **Priority:** P2  
@@ -128,14 +128,14 @@ JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache M
 Для кожного невалідного значення `toIban` список помилок `validate(...)` містить `TransferError.INVALID_TO_IBAN`, а `isValid(...)` повертає `false`.
 
 ### Environment
-JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`TransferValidator.java:32-37`), Windows 11, 04.11.2026.
+JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`TransferValidator.java:32-37`), Windows 11, команда запуску: `mvn clean test`, 04.11.2026.
 
 ### Attachments
-- `target/surefire-reports/ua.kpi.tzyapz.finkit.TransferValidatorTest.txt` - 5 падінь `validate_invalidToIban_returnsInvalidToIbanError` (`фактично: []`, `isValid == true`); зведення у `docs/surefire-summary.md`.
+- `target/surefire-reports/ua.kpi.tzyapz.finkit.TransferValidatorTest.txt` - 5 падінь `validate_invalidToIban_returnsInvalidToIbanError` (`фактично: []`, `isValid == true`); зведення у `docs/sprint4/surefire-summary.md`.
 
 ---
 
-## BUG-004: TransferValidator блокує переказ при досягненні точної межі денного ліміту 50 000.00 грн через умову >= 0
+## BUG-M04: TransferValidator блокує переказ при досягненні точної межі денного ліміту 50 000.00 грн через умову >= 0
 
 **Severity:** Major  
 **Priority:** P2  
@@ -160,14 +160,14 @@ JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache M
 Для обох граничних кейсів (`49700.00 + 300.00 == 50000.00` та `0.00 + 50000.00 == 50000.00`) метод `validate(...)` повертає порожній список `[]`, а `isValid(...)` повертає `true`.
 
 ### Environment
-JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`TransferValidator.java:45`), Windows 11, 04.11.2026.
+JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`TransferValidator.java:45`), Windows 11, команда запуску: `mvn clean test`, 04.11.2026.
 
 ### Attachments
-- `target/surefire-reports/ua.kpi.tzyapz.finkit.TransferValidatorTest.txt` - падіння `validate_exactDailyLimit50000_isAllowed` (`отримано: [DAILY_LIMIT_EXCEEDED]`); зведення у `docs/surefire-summary.md`.
+- `target/surefire-reports/ua.kpi.tzyapz.finkit.TransferValidatorTest.txt` - падіння `validate_exactDailyLimit50000_isAllowed` (`отримано: [DAILY_LIMIT_EXCEEDED]`); зведення у `docs/sprint4/surefire-summary.md`.
 
 ---
 
-## BUG-005: AccountLedger забороняє зняття повного залишку рахунку amount == balance через умову >= 0
+## BUG-M05: AccountLedger забороняє зняття повного залишку рахунку amount == balance через умову >= 0
 
 **Severity:** Major  
 **Priority:** P2  
@@ -192,14 +192,14 @@ JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache M
 За `BL-70` і `BL-80` зняття суми `250.00` за балансу `250.00` виконується без винятку, баланс стає `0.00` (шкала `2`), а в історії з'являється другий запис `LedgerEntry[type=WITHDRAWAL, amount=250.00, balanceAfter=0.00]`.
 
 ### Environment
-JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`AccountLedger.java:39-40`), Windows 11, 05.11.2026.
+JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`AccountLedger.java:39-40`), Windows 11, команда запуску: `mvn clean test`, 05.11.2026.
 
 ### Attachments
-- `target/surefire-reports/ua.kpi.tzyapz.finkit.AccountLedgerTest.txt` - падіння `withdraw_exactFullBalance_setsBalanceToZero` (`Unexpected exception thrown: java.lang.IllegalStateException: Овердрафт заборонено: недостатньо коштів`); зведення у `docs/surefire-summary.md`.
+- `target/surefire-reports/ua.kpi.tzyapz.finkit.AccountLedgerTest.txt` - падіння `withdraw_exactFullBalance_setsBalanceToZero` (`Unexpected exception thrown: java.lang.IllegalStateException: Овердрафт заборонено: недостатньо коштів`); зведення у `docs/sprint4/surefire-summary.md`.
 
 ---
 
-## BUG-006: AccountLedger.history повертає історію операцій у зворотному порядку через Collections.reverse
+## BUG-M06: AccountLedger.history повертає історію операцій у зворотному порядку через Collections.reverse
 
 **Severity:** Major  
 **Priority:** P2  
@@ -227,14 +227,14 @@ JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache M
 3. `LedgerEntry[type=DEPOSIT, amount=50.00, balanceAfter=120.00]`
 
 ### Environment
-JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`AccountLedger.java:61-63`), Windows 11, 05.11.2026.
+JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`AccountLedger.java:61-63`), Windows 11, команда запуску: `mvn clean test`, 05.11.2026.
 
 ### Attachments
-- `target/surefire-reports/ua.kpi.tzyapz.finkit.AccountLedgerTest.txt` - падіння `history_multipleOperations_returnsChronologicalOrder` (`Multiple Failures (2 failures)`); зведення у `docs/surefire-summary.md`.
+- `target/surefire-reports/ua.kpi.tzyapz.finkit.AccountLedgerTest.txt` - падіння `history_multipleOperations_returnsChronologicalOrder` (`Multiple Failures (2 failures)`); зведення у `docs/sprint4/surefire-summary.md`.
 
 ---
 
-## BUG-007: TransferValidator.isValidIban відхиляє валідний IBAN із пробілами всупереч правилу BL-50
+## BUG-M07: TransferValidator.isValidIban відхиляє валідний IBAN із пробілами всупереч правилу BL-50
 
 **Severity:** Normal  
 **Priority:** P3  
@@ -258,14 +258,14 @@ JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache M
 За `BL-50` (`SRS-1.1.md`) перед перевіркою шаблону `^UA[0-9]{27}$` пробіли вилучаються, тому `TransferValidator.isValidIban("UA21 3223 1300 0002 6007 2335 6600 1")` повертає `true`.
 
 ### Environment
-JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`TransferValidator.java:17,67-69`), Windows 11, 06.11.2026.
+JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`TransferValidator.java:17,67-69`), Windows 11, команда запуску: `mvn clean test`, 06.11.2026.
 
 ### Attachments
-- `target/surefire-reports/ua.kpi.tzyapz.finkit.TransferValidatorTest.txt` - зафіксовано падіння `КТ-3` (`isValidIban_validAndInvalidFormats_matchesBl50[2]`: `expected: <true> but was: <false>`); зведення у `docs/surefire-summary.md`.
+- `target/surefire-reports/ua.kpi.tzyapz.finkit.TransferValidatorTest.txt` - зафіксовано падіння `КТ-3` (`isValidIban_validAndInvalidFormats_matchesBl50[2]`: `expected: <true> but was: <false>`); зведення у `docs/sprint4/surefire-summary.md`.
 
 ---
 
-## BUG-008: AccountLedger.withdraw при овердрафті кидає IllegalStateException замість IllegalArgumentException за BL-70
+## BUG-M08: AccountLedger.withdraw при овердрафті кидає IllegalStateException замість IllegalArgumentException за BL-70
 
 **Severity:** Normal  
 **Priority:** P3  
@@ -290,7 +290,7 @@ JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache M
 За `BL-70` (`docs/sprint2/SRS-1.1.md`) виклик `withdraw(new BigDecimal("100.01"))` при балансі `100.00` кидає `IllegalArgumentException`, залишаючи `balance() == 100.00` та `history().size() == 1`.
 
 ### Environment
-JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`AccountLedger.java:35,40`), Windows 11, 06.11.2026.
+JDK 25.0.2 (цільовий рівень компіляції JDK 17), Apache Maven 3.9.9, JUnit Jupiter 5.10.2, Maven Surefire 3.2.5, модуль `ua.kpi.tzyapz.finkit` v1 (`AccountLedger.java:35,40`), Windows 11, команда запуску: `mvn clean test`, 06.11.2026.
 
 ### Attachments
-- `target/surefire-reports/ua.kpi.tzyapz.finkit.AccountLedgerTest.txt` - зафіксовано падіння `АО-3` (`withdraw_amountAboveBalance_throwsAndLeavesBalanceUnchanged`: `expected: <java.lang.IllegalArgumentException> but was: <java.lang.IllegalStateException>`); зведення у `docs/surefire-summary.md`.
+- `target/surefire-reports/ua.kpi.tzyapz.finkit.AccountLedgerTest.txt` - зафіксовано падіння `АО-3` (`withdraw_amountAboveBalance_throwsAndLeavesBalanceUnchanged`: `expected: <java.lang.IllegalArgumentException> but was: <java.lang.IllegalStateException>`); зведення у `docs/sprint4/surefire-summary.md`.
