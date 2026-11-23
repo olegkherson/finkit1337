@@ -67,7 +67,7 @@ class TransferValidatorTest {
     }
 
     // Автор: ІТ Бурлачка Артем | Рецензент: СМ Топчій Микита | Вимога: BL-50, BL-40
-    // Виявляє BUG-003: у v1 метод validate не перевіряє формат toIban і не повертає TransferError.INVALID_TO_IBAN.
+    // Виявляє BUG-M03: у v1 метод validate не перевіряє формат toIban і не повертає TransferError.INVALID_TO_IBAN.
     @ParameterizedTest(name = "Недійсний toIban=\"{0}\" -> INVALID_TO_IBAN")
     @MethodSource("invalidIbanInputs")
     @DisplayName("ІТ-2 (BL-50, BL-40): недійсний IBAN одержувача повертає INVALID_TO_IBAN")
@@ -91,7 +91,7 @@ class TransferValidatorTest {
     }
 
     // Автор: ІТ Бурлачка Артем | Рецензент: СМ Топчій Микита | Вимога: BL-40
-    // Виявляє BUG-004: у v1 умова >= 0 блокує переказ при досягненні точної межі денного ліміту 50000.00.
+    // Виявляє BUG-M04: у v1 умова >= 0 блокує переказ при досягненні точної межі денного ліміту 50000.00.
     @Test
     @DisplayName("ІТ-3 (BL-40): точна межа денного ліміту todaySpent + amount == 50000.00 дозволена")
     void validate_exactDailyLimit50000_isAllowed() {
@@ -176,8 +176,8 @@ class TransferValidatorTest {
         );
     }
 
-// Автор: КТ Бойко Олег | Рецензент: СМ Топчій Микита | Вимога: BL-50
-    // Виявляє BUG-007: за SRS-1.1 (BL-50) пробіли мають вилучатися перед перевіркою формату, тоді як v1 у isValidIban цього не робить.
+    // Автор: КТ Бойко Олег | Рецензент: СМ Топчій Микита | Вимога: BL-50
+    // Виявляє BUG-M07: за SRS-1.1 (BL-50) пробіли мають вилучатися перед перевіркою формату, тоді як v1 у isValidIban цього не робить.
     @ParameterizedTest(name = "isValidIban(\"{0}\") -> {1}")
     @MethodSource("ibanFormatCases")
     @DisplayName("КТ-3 (BL-50): isValidIban перевіряє формат UA + 27 цифр із вилученням пробілів")
@@ -193,10 +193,10 @@ class TransferValidatorTest {
         );
     }
 
-    // Автор: КТ Бойко Олег | Рецензент: СМ Топчій Микита | Вимога: BL-40, BL-50
+    // Автор: КТ Бойко Олег | Рецензент: СМ Топчій Микита | Вимога: BL-40
     @Test
-    @DisplayName("КТ-4 (BL-40, BL-50): validate фіксує збіг рахунків, нестачу коштів та агрегує декілька порушень")
-    void validate_sameAccountAndMultipleViolations_collectsAllExpectedErrors() {
+    @DisplayName("КТ-4 (BL-40): збіг рахунків fromIban == toIban повертає лише SAME_ACCOUNT")
+    void validate_sameAccount_returnsSameAccountError() {
         // Arrange
         BigDecimal standardBalance = new BigDecimal("5000.00");
 
@@ -206,11 +206,22 @@ class TransferValidatorTest {
         boolean sameAccountValid = validator.isValid(
             VALID_FROM_IBAN, VALID_FROM_IBAN, new BigDecimal("100.00"), standardBalance, BigDecimal.ZERO);
 
-        List<TransferError> insufficientFundsErrors = validator.validate(
-            VALID_FROM_IBAN, VALID_TO_IBAN, new BigDecimal("5000.01"), standardBalance, BigDecimal.ZERO);
-        boolean insufficientFundsValid = validator.isValid(
-            VALID_FROM_IBAN, VALID_TO_IBAN, new BigDecimal("5000.01"), standardBalance, BigDecimal.ZERO);
+        // Assert
+        assertAll(
+            () -> assertEquals(List.of(TransferError.SAME_ACCOUNT), sameAccountErrors,
+                "Збіг валідних рахунків має повертати рівно одне порушення SAME_ACCOUNT: " + sameAccountErrors),
+            () -> assertFalse(sameAccountValid, "isValid має повертати false при збігу рахунків")
+        );
+    }
 
+    // Автор: КТ Бойко Олег | Рецензент: СМ Топчій Микита | Вимога: BL-40, BL-50
+    @Test
+    @DisplayName("КТ-5 (BL-40, BL-50): validate агрегує декілька одночасних порушень в одному списку")
+    void validate_multipleViolations_collectsAllExpectedErrors() {
+        // Arrange
+        BigDecimal standardBalance = new BigDecimal("5000.00");
+
+        // Act
         List<TransferError> combinedErrors = validator.validate(
             "BAD_IBAN", "BAD_IBAN", new BigDecimal("60000.00"), standardBalance, BigDecimal.ZERO);
         boolean combinedValid = validator.isValid(
@@ -218,16 +229,6 @@ class TransferValidatorTest {
 
         // Assert
         assertAll(
-            () -> assertTrue(sameAccountErrors.contains(TransferError.SAME_ACCOUNT),
-                "Збіг fromIban і toIban має повертати SAME_ACCOUNT: " + sameAccountErrors),
-            () -> assertEquals(1, sameAccountErrors.size(),
-                "Для збігу валідних рахунків очікується рівно 1 порушення: " + sameAccountErrors),
-            () -> assertFalse(sameAccountValid, "isValid має повертати false при збігу рахунків"),
-            () -> assertTrue(insufficientFundsErrors.contains(TransferError.INSUFFICIENT_FUNDS),
-                "Сума 5000.01 > 5000.00 має повертати INSUFFICIENT_FUNDS: " + insufficientFundsErrors),
-            () -> assertEquals(1, insufficientFundsErrors.size(),
-                "Для перевищення балансу очікується рівно 1 порушення: " + insufficientFundsErrors),
-            () -> assertFalse(insufficientFundsValid, "isValid має повертати false при нестачі коштів"),
             () -> assertTrue(combinedErrors.contains(TransferError.INVALID_FROM_IBAN),
                 "Комбінований кейс має містити INVALID_FROM_IBAN: " + combinedErrors),
             () -> assertTrue(combinedErrors.contains(TransferError.SAME_ACCOUNT),
@@ -240,7 +241,7 @@ class TransferValidatorTest {
         );
     }
 
- // Автор: АО Сушко Ілля | Рецензент: СМ Топчій Микита | Вимога: BL-50, BL-40
+    // Автор: АО Сушко Ілля | Рецензент: СМ Топчій Микита | Вимога: BL-50, BL-40
     @ParameterizedTest(name = "Недійсний fromIban=\"{0}\" -> INVALID_FROM_IBAN")
     @MethodSource("invalidIbanInputs")
     @DisplayName("BL-50, BL-40: АО-1 - недійсний IBAN джерела повертає INVALID_FROM_IBAN і isValid == false")
@@ -293,9 +294,9 @@ class TransferValidatorTest {
                 "Сума 5000.01 при балансі 5000.00 має повертати лише INSUFFICIENT_FUNDS"),
             () -> assertFalse(aboveBoundaryValid, "isValid має повертати false при amount > balance")
         );
-    }   
-    
- private static Stream<Arguments> ibanFormatCases() {
+    }
+
+    private static Stream<Arguments> ibanFormatCases() {
         return Stream.of(
             Arguments.of("UA213223130000026007233566001", true),
             Arguments.of("UA21 3223 1300 0002 6007 2335 6600 1", true),
