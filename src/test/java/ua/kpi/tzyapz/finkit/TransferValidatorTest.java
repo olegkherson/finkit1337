@@ -240,6 +240,61 @@ class TransferValidatorTest {
         );
     }
 
+ // Автор: АО Сушко Ілля | Рецензент: СМ Топчій Микита | Вимога: BL-50, BL-40
+    @ParameterizedTest(name = "Недійсний fromIban=\"{0}\" -> INVALID_FROM_IBAN")
+    @MethodSource("invalidIbanInputs")
+    @DisplayName("BL-50, BL-40: АО-1 - недійсний IBAN джерела повертає INVALID_FROM_IBAN і isValid == false")
+    void validate_invalidFromIban_returnsInvalidFromIbanError(String invalidFromIban) {
+        // Arrange
+        BigDecimal amount = new BigDecimal("100.00");
+        BigDecimal balance = new BigDecimal("5000.00");
+
+        // Act
+        List<TransferError> errors = validator.validate(
+            invalidFromIban, VALID_TO_IBAN, amount, balance, BigDecimal.ZERO);
+        boolean valid = validator.isValid(
+            invalidFromIban, VALID_TO_IBAN, amount, balance, BigDecimal.ZERO);
+
+        // Assert
+        assertAll(
+            () -> assertTrue(errors.contains(TransferError.INVALID_FROM_IBAN),
+                "Очікували INVALID_FROM_IBAN для fromIban='" + invalidFromIban + "', фактично: " + errors),
+            () -> assertFalse(valid, "isValid має повертати false при недійсному fromIban")
+        );
+    }
+
+    // Автор: АО Сушко Ілля | Рецензент: СМ Топчій Микита | Вимога: BL-40
+    @Test
+    @DisplayName("BL-40: АО-2 - сума на межі балансу 5000.00 дозволена, а 5000.01 повертає INSUFFICIENT_FUNDS")
+    void validate_amountAtAndAboveBalanceBoundary_validatesInsufficientFunds() {
+        // Arrange
+        BigDecimal balance = new BigDecimal("5000.00");
+        BigDecimal todaySpent = new BigDecimal("0.00");
+        BigDecimal exactBalanceAmount = new BigDecimal("5000.00");
+        BigDecimal overBalanceAmount = new BigDecimal("5000.01");
+
+        // Act
+        List<TransferError> atBoundaryErrors = validator.validate(
+            VALID_FROM_IBAN, VALID_TO_IBAN, exactBalanceAmount, balance, todaySpent);
+        boolean atBoundaryValid = validator.isValid(
+            VALID_FROM_IBAN, VALID_TO_IBAN, exactBalanceAmount, balance, todaySpent);
+
+        List<TransferError> aboveBoundaryErrors = validator.validate(
+            VALID_FROM_IBAN, VALID_TO_IBAN, overBalanceAmount, balance, todaySpent);
+        boolean aboveBoundaryValid = validator.isValid(
+            VALID_FROM_IBAN, VALID_TO_IBAN, overBalanceAmount, balance, todaySpent);
+
+        // Assert
+        assertAll(
+            () -> assertTrue(atBoundaryErrors.isEmpty(),
+                "Сума 5000.00, що дорівнює балансу 5000.00, має бути дозволена: " + atBoundaryErrors),
+            () -> assertTrue(atBoundaryValid, "isValid має повертати true при amount == balance"),
+            () -> assertEquals(List.of(TransferError.INSUFFICIENT_FUNDS), aboveBoundaryErrors,
+                "Сума 5000.01 при балансі 5000.00 має повертати лише INSUFFICIENT_FUNDS"),
+            () -> assertFalse(aboveBoundaryValid, "isValid має повертати false при amount > balance")
+        );
+    }   
+    
  private static Stream<Arguments> ibanFormatCases() {
         return Stream.of(
             Arguments.of("UA213223130000026007233566001", true),
