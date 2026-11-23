@@ -92,7 +92,7 @@ class AccountLedgerTest {
     }
 
     // Автор: СМ Топчій Микита | Рецензент: КТ Бойко Олег | Вимога: BL-70, BL-80
-    // Виявляє BUG-005: у v1 умова value.compareTo(balance) >= 0 забороняє зняття повного залишку (amount == balance).
+    // Виявляє BUG-M05: у v1 умова value.compareTo(balance) >= 0 забороняє зняття повного залишку (amount == balance).
     @Test
     @DisplayName("СМ-3 (BL-70, BL-80): зняття повного залишку amount == balance встановлює баланс 0.00")
     void withdraw_exactFullBalance_setsBalanceToZero() {
@@ -119,7 +119,7 @@ class AccountLedgerTest {
     }
 
     // Автор: СМ Топчій Микита | Рецензент: КТ Бойко Олег | Вимога: BL-70, BL-80
-    // Виявляє BUG-006: у v1 метод history() викликає Collections.reverse(copy) і повертає записи у зворотному порядку.
+    // Виявляє BUG-M06: у v1 метод history() викликає Collections.reverse(copy) і повертає записи у зворотному порядку.
     @Test
     @DisplayName("СМ-4 (BL-70, BL-80): history повертає записи операцій у хронологічному порядку")
     void history_multipleOperations_returnsChronologicalOrder() {
@@ -186,7 +186,7 @@ class AccountLedgerTest {
     }
 
     // Автор: АО Сушко Ілля | Рецензент: СМ Топчій Микита | Вимога: BL-70, BL-80
-    // Виявляє BUG-008: за SRS-1.1 (BL-70) овердрафт має кидати IllegalArgumentException, тоді як Javadoc і код v1 кидають IllegalStateException.
+    // Виявляє BUG-M08: за SRS-1.1 (BL-70) овердрафт має кидати IllegalArgumentException, тоді як Javadoc і код v1 кидають IllegalStateException.
     @Test
     @DisplayName("BL-70, BL-80: АО-3 - зняття суми понад баланс кидає IllegalArgumentException і зберігає баланс")
     void withdraw_amountAboveBalance_throwsAndLeavesBalanceUnchanged() {
@@ -216,14 +216,13 @@ class AccountLedgerTest {
 
     // Автор: АО Сушко Ілля | Рецензент: СМ Топчій Микита | Вимога: BL-80, BL-70
     @Test
-    @DisplayName("BL-80, BL-70: АО-4 - поповнення на верхню межу 999999999.99 і незмінність колекції history()")
-    void deposit_upperBoundary999999999_99_andImmutableHistory_succeeds() {
+    @DisplayName("BL-80, BL-70: АО-4 - поповнення на верхню межу 999999999.99 оновлює баланс зі шкалою 2")
+    void deposit_upperBoundary999999999_99_updatesBalanceAndScale() {
         // Arrange
         BigDecimal maxOperationAmount = new BigDecimal("999999999.99");
 
         // Act
         ledger.deposit(maxOperationAmount);
-        List<LedgerEntry> history = ledger.history();
 
         // Assert
         assertAll(
@@ -232,16 +231,26 @@ class AccountLedgerTest {
                 ledger.balance(),
                 "Баланс після поповнення на верхню межу 999999999.99 має дорівнювати 999999999.99"
             ),
-            () -> assertEquals(2, ledger.balance().scale(), "Шкала балансу має дорівнювати 2"),
-            () -> assertEquals(1, history.size(), "Історія має містити рівно 1 запис"),
-            () -> assertThrows(
-                UnsupportedOperationException.class,
-                () -> history.add(new LedgerEntry(LedgerEntry.Type.DEPOSIT, BigDecimal.ONE, BigDecimal.ONE)),
-                "Колекція history() має бути незмінюваною"
-            )
+            () -> assertEquals(2, ledger.balance().scale(), "Шкала балансу має дорівнювати 2")
         );
     }
-    
+
+    // Автор: АО Сушко Ілля | Рецензент: СМ Топчій Микита | Вимога: BL-70, BL-80
+    @Test
+    @DisplayName("BL-70, BL-80: АО-5 - колекція history() є незмінюваною")
+    void history_returnedListIsUnmodifiable_throwsOnMutation() {
+        // Arrange
+        ledger.deposit(new BigDecimal("50.00"));
+        List<LedgerEntry> history = ledger.history();
+
+        // Act + Assert
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> history.add(new LedgerEntry(LedgerEntry.Type.DEPOSIT, BigDecimal.ONE, BigDecimal.ONE)),
+            "Колекція history() має бути незмінюваною"
+        );
+    }
+
     private static Stream<BigDecimal> nonPositiveAmounts() {
         return Stream.of(
             new BigDecimal("0.00"),
