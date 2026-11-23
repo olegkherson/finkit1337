@@ -185,3 +185,11 @@ finkit_sprint4/
 - Бойко Олег (`КТ`): **4** юніт-тести (`КТ-1`, `КТ-2` у `LoanCalculatorTest`; `КТ-3`, `КТ-4` у `TransferValidatorTest`);
 - Топчій Микита (`СМ`): **5** юніт-тестів (`СМ-1...СМ-5` у `AccountLedgerTest`);
 - Сушко Ілля (`АО`): **4** юніт-тести (`АО-1`, `АО-2` у `TransferValidatorTest`; `АО-3`, `АО-4` у `AccountLedgerTest`).
+
+---
+
+## Спринт 4 (Автоматизація: JUnit 5 і Selenium WebDriver)
+
+- Докладна інструкція збірки, покриття `BL-10...BL-80` та підсумки прогонів: [`docs/sprint4/README.md`](docs/sprint4/README.md)
+- Досьє якості v4, матриця покриття та звіти про дефекти (`BUG-M01...BUG-M08`): [`docs/sprint4/quality-dossier-v4.md`](docs/sprint4/quality-dossier-v4.md), [`docs/sprint4/coverage-matrix.md`](docs/sprint4/coverage-matrix.md), [`docs/sprint4/bug-reports.md`](docs/sprint4/bug-reports.md)
+- Команда запуску юніт-тестів JUnit 5: `mvn clean test`
