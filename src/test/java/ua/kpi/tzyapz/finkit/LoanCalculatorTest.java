@@ -32,7 +32,7 @@ class LoanCalculatorTest {
     }
 
     // Автор: ТА Закусило Дмитрій | Рецензент: СМ Топчій Микита | Вимога: BL-10
-    // Виявляє BUG-001: проміжне округлення місячної ставки i до 4 знаків у v1 спотворює платіж для ставок, некратних 12.
+    // Виявляє BUG-M01: проміжне округлення місячної ставки i до 4 знаків у v1 спотворює платіж для ставок, некратних 12.
     @ParameterizedTest(name = "P={0}, r={1}%, n={2} міс. -> {3} грн")
     @CsvSource({
         "100000, 12, 12, 8884.88",
@@ -59,7 +59,7 @@ class LoanCalculatorTest {
     }
 
     // Автор: ТА Закусило Дмитрій | Рецензент: СМ Топчій Микита | Вимога: BL-20
-    // Виявляє BUG-001: totalInterest каскадно спотворюється через похибку округленого щомісячного платежу в v1.
+    // Виявляє BUG-M01: totalInterest каскадно спотворюється через похибку округленого щомісячного платежу в v1.
     @Test
     @DisplayName("ТА-2 (BL-20): totalInterest використовує округлений monthlyPayment за формулою A * n - P")
     void totalInterest_referenceAndNonDivisibleRate_usesRoundedMonthlyPayment() {
@@ -80,25 +80,25 @@ class LoanCalculatorTest {
     }
 
     // Автор: ТА Закусило Дмитрій | Рецензент: СМ Топчій Микита | Вимога: BL-30, BL-10
-    // Виявляє BUG-002: у v1 умова months <= MIN_MONTHS відхиляє включну нижню межу n = 3.
+    // Виявляє BUG-M02: у v1 умова months <= MIN_MONTHS відхиляє включну нижню межу n = 3 (ставка 12 % ізолює тест від BUG-M01).
     @Test
     @DisplayName("ТА-3 (BL-30, BL-10): monthlyPayment приймає включну нижню межу строку n = 3 місяці")
     void monthlyPayment_minBoundaryMonths3_isAccepted() {
         // Arrange
         BigDecimal principal = new BigDecimal("1000.00");
-        BigDecimal rate = new BigDecimal("5.00");
+        BigDecimal rateDivisibleBy12 = new BigDecimal("12.00");
         int minMonths = 3;
 
         // Act
         BigDecimal actual = assertDoesNotThrow(
-            () -> calculator.monthlyPayment(principal, rate, minMonths),
+            () -> calculator.monthlyPayment(principal, rateDivisibleBy12, minMonths),
             "Нижня включна межа n = 3 не повинна кидати IllegalArgumentException"
         );
 
         // Assert
         assertAll(
             () -> assertEquals(2, actual.scale(), "Шкала результату має дорівнювати 2"),
-            () -> assertEquals(new BigDecimal("336.11"), actual, "Очікуваний платіж для P=1000, r=5%, n=3")
+            () -> assertEquals(new BigDecimal("340.02"), actual, "Очікуваний платіж для P=1000, r=12%, n=3")
         );
     }
 
@@ -148,9 +148,8 @@ class LoanCalculatorTest {
         assertNotNull(ex.getMessage(), "Виняток має містити діагностичне повідомлення");
     }
 
-
     // Автор: КТ Бойко Олег | Рецензент: СМ Топчій Микита | Вимога: BL-10, BL-20, BL-30
-    // Виявляє BUG-001: проміжне округлення місячної ставки i до 4 знаків у v1 спотворює переплату на граничних ставках 5.00 % і 40.00 %.
+    // Виявляє BUG-M01: проміжне округлення місячної ставки i до 4 знаків у v1 спотворює переплату на граничних ставках 5.00 % і 40.00 %.
     @Test
     @DisplayName("КТ-1 (BL-10, BL-20, BL-30): totalInterest на граничних ставках 5.00 % і 40.00 % зберігає точність та шкалу 2")
     void totalInterest_boundaryRatesAndHalfUpScale_returnsTwoDecimalPlaces() {
@@ -194,7 +193,7 @@ class LoanCalculatorTest {
         );
         assertNotNull(ex.getMessage(), "Виняток totalInterest має містити діагностичне повідомлення");
     }
-    
+
     private static Stream<Arguments> outOfBoundsAndNullInputs() {
         return Stream.of(
             Arguments.of(new BigDecimal("999.99"), new BigDecimal("12"), 12),
